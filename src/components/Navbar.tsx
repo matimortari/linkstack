@@ -3,6 +3,7 @@
 import { Icon } from "@iconify/react"
 import { signOut } from "next-auth/react"
 import Link from "next/link"
+import ThemeSwitch from "./ThemeSwitch"
 
 export default function Navbar() {
 	return (
@@ -10,6 +11,7 @@ export default function Navbar() {
 			<div className="rounded-2xl border border-muted p-2">
 				<p className="text-lg font-bold">LinkSphere</p>
 			</div>
+			<ThemeSwitch />
 			<hr />
 
 			<div className="flex w-full flex-col justify-center gap-2 text-sm">
