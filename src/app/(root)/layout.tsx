@@ -1,6 +1,5 @@
 import Providers from "@/src/components/context/Providers"
 import Footer from "@/src/components/Footer"
-import Navbar from "@/src/components/Navbar"
 import { authOptions } from "@/src/lib/auth"
 import "@/src/styles/globals.css"
 import type { Metadata } from "next"
@@ -21,8 +20,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 		<html lang="en" suppressHydrationWarning>
 			<body className={inter.className}>
 				<Providers session={session}>
-					<Navbar />
-					{children}
+					<div className="p-2">{children}</div>
 					<Footer />
 				</Providers>
 			</body>

@@ -1,49 +1,41 @@
 "use client"
 
 import { Icon } from "@iconify/react"
-import { signOut, useSession } from "next-auth/react"
-import { useTheme } from "next-themes"
-import Image from "next/image"
+import { signOut } from "next-auth/react"
 import Link from "next/link"
 
 export default function Navbar() {
-	const { data: session } = useSession()
-	const { theme, setTheme } = useTheme()
-
-	const handleThemeToggle = () => {
-		setTheme(theme === "light" ? "dark" : "light")
-	}
-
 	return (
-		<nav className="flex items-center justify-between p-2 shadow-md">
-			<div className="flex items-center gap-2">
-				<Link className="button" href="/">
-					Home
+		<div className="flex flex-col justify-center gap-4 font-semibold">
+			<div className="rounded-2xl border border-muted p-2">
+				<p className="text-lg font-bold">LinkSphere</p>
+			</div>
+			<hr />
+
+			<div className="flex w-full flex-col justify-center gap-2 text-sm">
+				<Link href="/dashboard" className="btn">
+					<Icon icon="material-symbols:view-timeline-outline" className="icon text-xl" />
+					<p>My Links</p>
 				</Link>
-			</div>
+				<hr />
 
-			<div className="flex items-center gap-2">
-				<button onClick={handleThemeToggle} className="button h-10 w-10">
-					<Icon
-						icon={theme === "light" ? "material-symbols:light-mode-rounded" : "material-symbols:dark-mode-rounded"}
-					/>
+				<Link href="/dashboard/preferences" className="btn">
+					<Icon icon="material-symbols:settings-applications-outline" className="icon text-xl" />
+					<p>Preferences</p>
+				</Link>
+				<hr />
+
+				<Link href="/dashboard/analytics" className="btn">
+					<Icon icon="material-symbols:chart-data-outline" className="icon text-xl" />
+					<p>Analytics</p>
+				</Link>
+				<hr />
+
+				<button onClick={async () => await signOut({ redirect: true, callbackUrl: "/" })} className="btn">
+					<Icon icon="material-symbols:logout" className="icon text-xl" />
+					<p>Sign Out</p>
 				</button>
-
-				{session ? (
-					<div className="flex items-center gap-2">
-						<button onClick={() => signOut()} className="button">
-							Sign Out
-						</button>
-						{session.user.image && (
-							<Image src={session.user.image} alt={session.user.name || ""} width={40} height={40} className="avatar" />
-						)}
-					</div>
-				) : (
-					<Link href="/login" className="button">
-						Sign In
-					</Link>
-				)}
 			</div>
-		</nav>
+		</div>
 	)
 }

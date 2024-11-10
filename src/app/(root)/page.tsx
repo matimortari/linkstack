@@ -1,6 +1,8 @@
 "use client"
 
 import { useQuery } from "@tanstack/react-query"
+import { useSession } from "next-auth/react"
+import { redirect } from "next/navigation"
 
 const getMessage = async () => {
 	const response = await fetch("/api/hello")
@@ -9,6 +11,12 @@ const getMessage = async () => {
 }
 
 export default function Home() {
+	const { status } = useSession()
+
+	if (status === "authenticated") {
+		redirect("/dashboard")
+	}
+
 	const { data, refetch } = useQuery({
 		queryKey: ["get-message"],
 		queryFn: getMessage,
