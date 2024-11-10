@@ -62,6 +62,27 @@
 	}
 }
 
+.dashboard-container {
+	background-color: var(--card);
+	border-color: var(--muted);
+	border-width: 1px;
+	border-radius: 1rem;
+	padding: 1rem;
+}
+
+.form-container {
+	background-color: var(--card);
+	border-color: var(--muted);
+	border-width: 1px;
+	border-radius: 1rem;
+	display: inline-flex;
+	align-items: center;
+	padding-left: 0.75rem;
+	padding-right: 0.25rem;
+	padding-top: 0.25rem;
+	padding-bottom: 0.25rem;
+}
+
 .avatar {
 	box-shadow: 1px 0px 4px 0px var(--muted);
 	border-radius: 100%;

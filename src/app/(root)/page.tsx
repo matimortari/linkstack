@@ -1,7 +1,9 @@
 "use client"
 
+import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 
 const getMessage = async () => {
@@ -25,7 +27,7 @@ export default function Home() {
 
 	return (
 		<div className="m-8 flex h-screen flex-col items-center">
-			<button className="button" onClick={() => refetch()}>
+			<button className="btn" onClick={() => refetch()}>
 				Hello LinkStack!
 			</button>
 
@@ -34,6 +36,10 @@ export default function Home() {
 					<strong>{data.message}</strong>
 				</div>
 			)}
+
+			<Link href="/login" className="btn h-10 w-10">
+				<Icon icon="material-symbols:login" />
+			</Link>
 		</div>
 	)
 }

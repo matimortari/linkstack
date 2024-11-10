@@ -12,8 +12,14 @@ export default function Analytics() {
 				<Navbar />
 			</aside>
 
-			<main className="border border-muted bg-card p-4 md:w-7/12">
-				<h1 className="title">Dashboard</h1>
+			<main className="dashboard-container md:w-7/12">
+				<header className="mb-2 flex flex-col">
+					<h1 className="title">Dashboard</h1>
+					<span className="title-label">View your profile analytics.</span>
+				</header>
+				<hr />
+
+				<div className="mt-2 flex flex-col">Main Content</div>
 			</main>
 
 			<aside className="p-4 md:w-3/12">
