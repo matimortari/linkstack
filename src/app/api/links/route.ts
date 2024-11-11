@@ -16,22 +16,20 @@ export async function GET(req: NextRequest) {
 	return NextResponse.json(userLinks, { status: 200 })
 }
 
-// export async function GET(req: NextRequest) {
-// 	const slug = req.nextUrl.searchParams.get("slug")
-// 	if (!slug) {
-// 		return NextResponse.json({ error: "Invalid slug" }, { status: 400 })
-// 	}
-
-// 	const user = await db.user.findUnique({ where: { slug } })
-// 	if (!user) {
-// 		return NextResponse.json({ error: "User not found" }, { status: 404 })
-// 	}
-
-// 	const userLinks = await db.userLink.findMany({ where: { userId: user.id } })
-// 	return NextResponse.json(userLinks)
-
 // POST method for creating a new user link
-// export async function POST(req: NextRequest) {}
+export async function POST(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	const { title, url } = await req.json()
+	if (!title || !url) return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+
+	const newLink = await db.userLink.create({
+		data: { title, url, userId: session.user.id }
+	})
+
+	return NextResponse.json(newLink)
+}
 
 // PUT method for updating a user link
 // export async function PUT(req: NextRequest) {}

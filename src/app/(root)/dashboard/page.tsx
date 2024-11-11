@@ -1,7 +1,9 @@
 "use client"
 
+import ButtonList from "@/src/components/ButtonList"
 import UpdateHeaderForm from "@/src/components/forms/UpdateHeaderForm"
 import UpdateSlugForm from "@/src/components/forms/UpdateSlugForm"
+import LinkList from "@/src/components/LinkList"
 import Navbar from "@/src/components/Navbar"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
@@ -29,9 +31,22 @@ export default function Dashboard() {
 						<UpdateSlugForm />
 						<hr />
 					</div>
+
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Update Header Description</h2>
 						<UpdateHeaderForm />
+						<hr />
+					</div>
+
+					<div className="my-4 flex flex-col">
+						<h2 className="subtitle">My Links</h2>
+						<LinkList />
+						<hr />
+					</div>
+
+					<div className="my-4 flex flex-col">
+						<h2 className="subtitle">My Buttons</h2>
+						<ButtonList />
 						<hr />
 					</div>
 				</div>

@@ -17,7 +17,19 @@ export async function GET(req: NextRequest) {
 }
 
 // POST method for creating a new user social button
-// export async function POST(req: NextRequest) {}
+export async function POST(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	const { platform, url, icon } = await req.json()
+	if (!platform || !url || !icon) return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+
+	const newButton = await db.userButton.create({
+		data: { platform, url, icon, userId: session.user.id }
+	})
+
+	return NextResponse.json(newButton)
+}
 
 // PUT method for updating a user social button
 // export async function PUT(req: NextRequest) {}
