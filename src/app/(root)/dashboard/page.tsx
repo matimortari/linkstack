@@ -16,7 +16,7 @@ export default function Dashboard() {
 				<Navbar />
 			</aside>
 
-			<main className="dashboard-container md:w-7/12">
+			<main className="content-container md:w-7/12">
 				<header className="mb-2 flex flex-col">
 					<h1 className="title">Dashboard</h1>
 					<span className="title-label">

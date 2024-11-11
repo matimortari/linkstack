@@ -62,7 +62,7 @@
 	}
 }
 
-.dashboard-container {
+.content-container {
 	background-color: var(--card);
 	border-color: var(--muted);
 	border-width: 1px;

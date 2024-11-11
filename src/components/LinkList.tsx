@@ -1,16 +1,11 @@
 "use client"
 
 import { useEffect, useState } from "react"
-
-interface UserLink {
-	id: number
-	url: string
-	title: string
-	clicks: number
-}
+import AddLinkDialog from "./dialogs/AddLinkDialog"
 
 export default function LinkList() {
 	const [userLinks, setUserLinks] = useState<UserLink[]>([])
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	const [loading, setLoading] = useState(true)
 
 	// Fetch user links
@@ -36,6 +31,12 @@ export default function LinkList() {
 					</a>
 				</li>
 			))}
+
+			{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
+
+			<button onClick={() => setIsDialogOpen(true)} className="btn">
+				Add Link
+			</button>
 		</ul>
 	)
 }

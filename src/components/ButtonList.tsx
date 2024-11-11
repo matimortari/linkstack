@@ -2,23 +2,17 @@
 
 import { Icon } from "@iconify/react"
 import { useEffect, useState } from "react"
-
-interface UserButton {
-	id: number
-	url: string
-	platform: string
-	icon: string
-	clicks: number
-}
+import AddButtonDialog from "./dialogs/AddButtonDialog"
 
 export default function ButtonList() {
 	const [userButtons, setUserButtons] = useState<UserButton[]>([])
+	const [isDialogOpen, setIsDialogOpen] = useState(false)
 	const [loading, setLoading] = useState(true)
 
 	// Fetch user buttons
 	useEffect(() => {
 		const fetchButtons = async () => {
-			const res = await fetch("/api/buttons") // Make sure you have this endpoint set up
+			const res = await fetch("/api/buttons")
 			const data: UserButton[] = await res.json()
 			setUserButtons(data)
 			setLoading(false)
@@ -38,6 +32,12 @@ export default function ButtonList() {
 					</a>
 				</li>
 			))}
+
+			{isDialogOpen && <AddButtonDialog onClose={() => setIsDialogOpen(false)} />}
+
+			<button onClick={() => setIsDialogOpen(true)} className="btn">
+				Add Button
+			</button>
 		</ul>
 	)
 }
