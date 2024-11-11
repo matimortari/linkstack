@@ -8,5 +8,6 @@ export async function getSessionOrUnauthorized() {
 	if (!session || !session.user) {
 		return { error: true, response: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) }
 	}
+
 	return { error: false, session }
 }

@@ -7,4 +7,6 @@ export default function useAuthRedirect() {
 	if (status === "unauthenticated" || !session?.user) {
 		redirect("/login")
 	}
+
+	return { session }
 }

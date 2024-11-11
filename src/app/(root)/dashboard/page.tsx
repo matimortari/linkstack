@@ -6,7 +6,7 @@ import Navbar from "@/src/components/Navbar"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
 export default function Dashboard() {
-	useAuthRedirect()
+	const { session } = useAuthRedirect()
 
 	return (
 		<div className="flex min-h-screen md:flex-row">
@@ -18,7 +18,7 @@ export default function Dashboard() {
 				<header className="mb-2 flex flex-col">
 					<h1 className="title">Dashboard</h1>
 					<span className="title-label">
-						Welcome back, <span className="font-bold text-primary">User</span>!
+						Welcome back, <span className="font-bold text-primary">{session.user.name}</span>!
 					</span>
 				</header>
 				<hr />
@@ -29,7 +29,6 @@ export default function Dashboard() {
 						<UpdateSlugForm />
 						<hr />
 					</div>
-
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Update Header Description</h2>
 						<UpdateHeaderForm />
