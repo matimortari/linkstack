@@ -1,5 +1,6 @@
 "use client"
 
+import PreferencesForm from "@/src/components/forms/PreferencesForm"
 import Navbar from "@/src/components/Navbar"
 import useAuthRedirect from "@/src/hooks/useAuth"
 
@@ -19,7 +20,13 @@ export default function Preferences() {
 				</header>
 				<hr />
 
-				<div className="mt-2 flex flex-col">Main Content</div>
+				<div className="flex flex-col">
+					<div className="my-4 flex flex-col">
+						<h2 className="subtitle">Update Preferences</h2>
+						<PreferencesForm />
+						<hr />
+					</div>
+				</div>
 			</main>
 
 			<aside className="p-4 md:w-3/12">
