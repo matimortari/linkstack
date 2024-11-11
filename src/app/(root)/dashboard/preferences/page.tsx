@@ -2,7 +2,7 @@
 
 import PreferencesForm from "@/src/components/forms/PreferencesForm"
 import Navbar from "@/src/components/Navbar"
-import useAuthRedirect from "@/src/hooks/useAuth"
+import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
 export default function Preferences() {
 	useAuthRedirect()

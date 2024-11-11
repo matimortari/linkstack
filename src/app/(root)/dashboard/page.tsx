@@ -3,7 +3,7 @@
 import UpdateHeaderForm from "@/src/components/forms/UpdateHeaderForm"
 import UpdateSlugForm from "@/src/components/forms/UpdateSlugForm"
 import Navbar from "@/src/components/Navbar"
-import useAuthRedirect from "@/src/hooks/useAuth"
+import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
 export default function Dashboard() {
 	useAuthRedirect()

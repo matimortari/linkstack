@@ -1,7 +1,7 @@
 "use client"
 
 import Navbar from "@/src/components/Navbar"
-import useAuthRedirect from "@/src/hooks/useAuth"
+import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
 export default function Analytics() {
 	useAuthRedirect()
