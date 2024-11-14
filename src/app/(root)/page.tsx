@@ -3,6 +3,7 @@
 import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
+import Image from "next/image"
 import Link from "next/link"
 import { redirect } from "next/navigation"
 
@@ -26,20 +27,20 @@ export default function Home() {
 	})
 
 	return (
-		<div className="m-8 flex h-screen flex-col items-center">
-			<button className="btn" onClick={() => refetch()}>
-				Hello LinkStack!
-			</button>
-
-			{data?.message && (
-				<div className="m-4">
-					<strong>{data.message}</strong>
-				</div>
-			)}
+		<div className="content-container min-h-screen">
+			<div className="absolute inset-x-0 bottom-0 opacity-50 md:h-3/6">
+				<Image src="/grid-bg.png" alt="Background" fill className="rounded-2xl" />
+			</div>
 
 			<Link href="/login" className="btn h-10 w-10">
 				<Icon icon="material-symbols:login" />
 			</Link>
+
+			<main className="flex flex-col items-center justify-center gap-4 md:flex-row">
+				<section className="flex items-center justify-center">1</section>
+
+				<section className="flex items-center justify-center">2</section>
+			</main>
 		</div>
 	)
 }
