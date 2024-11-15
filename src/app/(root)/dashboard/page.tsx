@@ -45,7 +45,7 @@ export default function Dashboard() {
 					<hr />
 
 					<div className="my-4 flex flex-col">
-						<h2 className="subtitle">My Buttons</h2>
+						<h2 className="subtitle">My Social Buttons</h2>
 						<ButtonList />
 					</div>
 					<hr />
