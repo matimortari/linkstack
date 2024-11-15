@@ -2,6 +2,7 @@
 
 import { Icon } from "@iconify/react"
 import { signIn, useSession } from "next-auth/react"
+import Image from "next/image"
 import { redirect } from "next/navigation"
 
 export default function Login() {
@@ -12,7 +13,11 @@ export default function Login() {
 	}
 
 	return (
-		<div className="m-8 flex h-screen flex-col items-center">
+		<div className="content-container relative min-h-screen overflow-hidden">
+			<div className="absolute inset-x-0 bottom-0 opacity-50 md:h-3/6">
+				<Image src="/grid-bg.png" alt="Background" fill />
+			</div>
+
 			<div className="flex flex-col items-center justify-center p-8">
 				<strong className="p-4 text-5xl">Sign In</strong>
 				<p className="text-muted-foreground">Sign in with your preferred provider.</p>
