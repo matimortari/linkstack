@@ -3,16 +3,23 @@ import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 import AddLinkDialog from "../dialogs/AddLinkDialog"
+import UpdateLinkDialog from "../dialogs/UpdateLinkDialog"
 
 export default function LinkList() {
-	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const [currentLink, setCurrentLink] = useState(null)
+	const [isAddLinkDialogOpen, setIsAddLinkDialogOpen] = useState(false) // State for Add Link Dialog
+	const [isUpdateLinkDialogOpen, setIsUpdateLinkDialogOpen] = useState(false) // State for Update Link Dialog
+	const [currentLink, setCurrentLink] = useState(null) // Current link for editing
 	const { data: userLinks, isLoading } = useQuery({ queryKey: ["links"], queryFn: getLinks })
+
+	const handleAddLink = () => {
+		setIsAddLinkDialogOpen(true)
+	}
 
 	const handleEditLink = (link) => {
 		setCurrentLink(link)
-		setIsDialogOpen(true)
+		setIsUpdateLinkDialogOpen(true)
 	}
+
 	if (isLoading) return <p className="py-2 text-sm text-muted-foreground">Loading Links...</p>
 
 	return (
@@ -25,14 +32,11 @@ export default function LinkList() {
 								<a href={link.url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2">
 									{link.title} - {link.clicks} clicks
 								</a>
+
 								<button onClick={() => handleEditLink(link)}>
 									<Icon icon="material-symbols:edit-square-outline" className="icon h-4 w-4 text-muted-foreground" />
 								</button>
-								<button
-									onClick={() => {
-										undefined
-									}}
-								>
+								<button onClick={() => {}}>
 									<Icon icon="material-symbols:delete-outline" className="icon h-4 w-4 text-destructive" />
 								</button>
 							</div>
@@ -42,14 +46,14 @@ export default function LinkList() {
 				))}
 			</ul>
 
-			{isDialogOpen && <AddLinkDialog onClose={() => setIsDialogOpen(false)} />}
+			{isAddLinkDialogOpen && <AddLinkDialog onClose={() => setIsAddLinkDialogOpen(false)} />}
 
-			{/* {isDialogOpen && currentLink && (
-				<UpdateLinkDialog onClose={() => setIsDialogOpen(false)} linkData={currentLink} />
-			)} */}
+			{isUpdateLinkDialogOpen && currentLink && (
+				<UpdateLinkDialog onClose={() => setIsUpdateLinkDialogOpen(false)} linkData={currentLink} />
+			)}
 
 			<div>
-				<button onClick={() => setIsDialogOpen(true)} className="btn">
+				<button onClick={handleAddLink} className="btn">
 					Add Link
 				</button>
 			</div>

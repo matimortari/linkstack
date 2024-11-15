@@ -32,7 +32,24 @@ export async function POST(req: NextRequest) {
 }
 
 // PUT method for updating a user link
-// export async function PUT(req: NextRequest) {}
+export async function PUT(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	const { id, title, url } = await req.json()
+
+	const existingLink = await db.userLink.findUnique({ where: { id } })
+	if (!existingLink || existingLink.userId !== session.user.id) {
+		return NextResponse.json({ error: "Link not found" }, { status: 404 })
+	}
+
+	const updatedLink = await db.userLink.update({
+		where: { id },
+		data: { title, url }
+	})
+
+	return NextResponse.json(updatedLink)
+}
 
 // DELETE method for deleting a user link
 // export async function DELETE(req: NextRequest) {}
