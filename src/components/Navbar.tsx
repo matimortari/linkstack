@@ -1,16 +1,17 @@
-"use client"
-
 import { Icon } from "@iconify/react"
 import { signOut } from "next-auth/react"
+import Image from "next/image"
 import Link from "next/link"
 import ThemeSwitch from "./ThemeSwitch"
 
 export default function Navbar() {
 	return (
 		<div className="flex flex-col justify-center gap-4 font-semibold">
-			<div className="rounded-2xl border border-muted p-2">
-				<p className="text-lg font-bold">LinkSphere</p>
+			<div className="content-container flex flex-row gap-2">
+				<Image src="/logo.png" alt="Logo" width={25} height={25} className="icon" />
+				<span className="text-lg font-bold">LinkStack</span>
 			</div>
+
 			<ThemeSwitch />
 			<hr />
 

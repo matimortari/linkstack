@@ -1,26 +1,13 @@
-"use client"
-
 import { getLinks } from "@/src/lib/actions"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
-import AddLinkDialog from "./dialogs/AddLinkDialog"
+import AddLinkDialog from "../dialogs/AddLinkDialog"
 
 export default function LinkList() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
+	const { data: userLinks, isLoading } = useQuery({ queryKey: ["links"], queryFn: getLinks })
 
-	const {
-		data: userLinks,
-		isLoading,
-		isError,
-		error
-	} = useQuery({
-		queryKey: ["links"],
-		queryFn: getLinks
-	})
-
-	if (isLoading) return <p>Loading...</p>
-
-	if (isError) return <p>Error: {error.message}</p>
+	if (isLoading) return <p className="py-2 text-sm text-muted-foreground">Loading Links...</p>
 
 	return (
 		<ul>

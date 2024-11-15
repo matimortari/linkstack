@@ -1,27 +1,14 @@
-"use client"
-
 import { getButtons } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
-import AddButtonDialog from "./dialogs/AddButtonDialog"
+import AddButtonDialog from "../dialogs/AddButtonDialog"
 
 export default function ButtonList() {
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
+	const { data: userButtons, isLoading } = useQuery({ queryKey: ["buttons"], queryFn: getButtons })
 
-	const {
-		data: userButtons,
-		isLoading,
-		isError,
-		error
-	} = useQuery({
-		queryKey: ["buttons"],
-		queryFn: getButtons
-	})
-
-	if (isLoading) return <p>Loading...</p>
-
-	if (isError) return <p>Error: {error.message}</p>
+	if (isLoading) return <p className="py-2 text-sm text-muted-foreground">Loading Social Buttons...</p>
 
 	return (
 		<ul>

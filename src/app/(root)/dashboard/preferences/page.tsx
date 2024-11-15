@@ -24,8 +24,8 @@ export default function Preferences() {
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Update Preferences</h2>
 						<PreferencesForm />
-						<hr />
 					</div>
+					<hr />
 				</div>
 			</main>
 

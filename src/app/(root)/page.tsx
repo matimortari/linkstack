@@ -31,7 +31,7 @@ export default function Home() {
 			</div>
 
 			<div className="relative flex w-full items-center justify-between">
-				<div className="flex items-center gap-2">
+				<div className="flex flex-row items-center gap-2">
 					<Image src="/logo.png" alt="Logo" width={25} height={25} className="icon" />
 					<span className="text-lg font-bold">LinkStack</span>
 				</div>
