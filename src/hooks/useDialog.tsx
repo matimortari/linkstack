@@ -2,11 +2,11 @@ import { useEffect, useRef, useState } from "react"
 
 const useDialog = (onClose) => {
 	const dialogRef = useRef<HTMLDivElement>(null)
-	const [error, setError] = useState(null)
+	const [error, setError] = useState<string | null>(null)
 
 	useEffect(() => {
-		const handleClickOutside = (event) => {
-			if (dialogRef.current && !dialogRef.current.contains(event.target)) {
+		const handleClickOutside = (event: MouseEvent) => {
+			if (dialogRef.current && !dialogRef.current.contains(event.target as Node)) {
 				onClose()
 			}
 		}
