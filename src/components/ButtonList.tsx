@@ -1,27 +1,27 @@
 "use client"
 
+import { getButtons } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
 import AddButtonDialog from "./dialogs/AddButtonDialog"
 
 export default function ButtonList() {
-	const [userButtons, setUserButtons] = useState<UserButton[]>([])
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const [loading, setLoading] = useState(true)
 
-	// Fetch user buttons
-	useEffect(() => {
-		const fetchButtons = async () => {
-			const res = await fetch("/api/buttons")
-			const data: UserButton[] = await res.json()
-			setUserButtons(data)
-			setLoading(false)
-		}
+	const {
+		data: userButtons,
+		isLoading,
+		isError,
+		error
+	} = useQuery({
+		queryKey: ["buttons"],
+		queryFn: getButtons
+	})
 
-		fetchButtons()
-	}, [])
+	if (isLoading) return <p>Loading...</p>
 
-	if (loading) return <p>Loading...</p>
+	if (isError) return <p>Error: {error.message}</p>
 
 	return (
 		<ul>

@@ -1,5 +1,6 @@
 "use client"
 
+import { getMessage } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
@@ -9,12 +10,6 @@ import Link from "next/link"
 import { redirect } from "next/navigation"
 
 const bowlby = Bowlby_One({ subsets: ["latin"], weight: "400" })
-
-const getMessage = async () => {
-	const response = await fetch("/api/hello")
-	if (!response.ok) throw new Error("Failed to fetch data")
-	return response.json()
-}
 
 export default function Home() {
 	const { status } = useSession()
@@ -67,7 +62,7 @@ export default function Home() {
 
 				<section className="z-50 flex w-full max-w-xl flex-col items-center justify-center md:w-1/2">
 					<div className="flex flex-col">
-						<button className="btn rounded-md px-4 py-2" onClick={() => refetch}>
+						<button className="btn rounded-md px-4 py-2" onClick={() => refetch()}>
 							Preview
 						</button>
 						{data && <p className="mt-4">Message: {data.message}</p>}

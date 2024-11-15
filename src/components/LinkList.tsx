@@ -1,33 +1,33 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { getLinks } from "@/src/lib/actions"
+import { useQuery } from "@tanstack/react-query"
+import { useState } from "react"
 import AddLinkDialog from "./dialogs/AddLinkDialog"
 
 export default function LinkList() {
-	const [userLinks, setUserLinks] = useState<UserLink[]>([])
 	const [isDialogOpen, setIsDialogOpen] = useState(false)
-	const [loading, setLoading] = useState(true)
 
-	// Fetch user links
-	useEffect(() => {
-		const fetchLinks = async () => {
-			const res = await fetch("/api/links")
-			const data: UserLink[] = await res.json()
-			setUserLinks(data)
-			setLoading(false)
-		}
+	const {
+		data: userLinks,
+		isLoading,
+		isError,
+		error
+	} = useQuery({
+		queryKey: ["links"],
+		queryFn: getLinks
+	})
 
-		fetchLinks()
-	}, [])
+	if (isLoading) return <p>Loading...</p>
 
-	if (loading) return <p>Loading...</p>
+	if (isError) return <p>Error: {error.message}</p>
 
 	return (
 		<ul>
 			{userLinks.map((link) => (
 				<li key={link.id}>
 					<a href={link.url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2">
-						{link.title}- {link.clicks} clicks
+						{link.title} - {link.clicks} clicks
 					</a>
 				</li>
 			))}
