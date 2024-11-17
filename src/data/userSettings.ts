@@ -1,3 +1,5 @@
+import { SupportBanner } from "@prisma/client"
+
 export const SLUG_FONT_SIZES = [
 	{ label: "Small", value: "1rem" },
 	{ label: "Medium", value: "1.25rem" },
@@ -94,5 +96,5 @@ export const defaultSettings = {
 	isButtonShadow: false,
 	buttonIconColor: "#1e1e1e",
 	buttonHoverBackgroundColor: "#eeeeee",
-	supportBanner: "NONE"
+	supportBanner: SupportBanner.NONE
 }
