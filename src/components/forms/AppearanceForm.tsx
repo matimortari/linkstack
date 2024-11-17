@@ -84,8 +84,7 @@ export default function AppearanceForm() {
 
 		try {
 			const result = await resetSettings()
-			const data = await result.json()
-			setSettings(data.settings)
+			setSettings(result.settings)
 			setSuccess("Settings reset to default.")
 		} catch (error) {
 			console.error("Error resetting user settings:", error)

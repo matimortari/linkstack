@@ -1,3 +1,5 @@
+import { defaultSettings } from "../data/userSettings"
+
 // Get user data
 export const getUserData = async () => {
 	const res = await fetch("/api/user", { method: "GET" })
@@ -35,7 +37,7 @@ export const resetSettings = async () => {
 	const res = await fetch("/api/preferences", {
 		method: "PUT",
 		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({})
+		body: JSON.stringify(defaultSettings)
 	})
 	return res.json()
 }
