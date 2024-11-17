@@ -6,10 +6,11 @@ export function useAddLink({ onClose }) {
 	const queryClient = useQueryClient()
 
 	return useMutation({
+		mutationKey: ["addLink"],
 		mutationFn: addLink,
-		onSuccess: (data) => {
-			queryClient.invalidateQueries({ queryKey: ["links"] }) // Invalidate the query for links
-			if (onClose) onClose() // Close the dialog when the link is added
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["links"] })
+			if (onClose) onClose()
 		},
 		onError: (error) => {
 			console.error("Error adding link:", error)
@@ -17,11 +18,12 @@ export function useAddLink({ onClose }) {
 	})
 }
 
-// Hook to update a user link
+// Hook to update a link
 export function useUpdateLink({ onClose }) {
 	const queryClient = useQueryClient()
 
 	return useMutation({
+		mutationKey: ["updateLink"],
 		mutationFn: updateLink,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["links"] })
@@ -34,14 +36,15 @@ export function useUpdateLink({ onClose }) {
 	})
 }
 
-// Hook to delete a user link
+// Hook to delete a link
 export function useDeleteLink() {
 	const queryClient = useQueryClient()
 
 	return useMutation({
+		mutationKey: ["deleteLink"],
 		mutationFn: (id: string) => deleteLink(id),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ["links"] }) // Invalidate the query for links
+			queryClient.invalidateQueries({ queryKey: ["links"] })
 		},
 		onError: (error) => {
 			console.error("Error deleting link:", error)
@@ -51,10 +54,14 @@ export function useDeleteLink() {
 
 // Hook to add a new social button
 export function useAddButton({ onClose }) {
+	const queryClient = useQueryClient()
+
 	return useMutation({
+		mutationKey: ["addButton"],
 		mutationFn: addButton,
-		onSuccess: (data) => {
-			if (onClose) onClose() // Close the dialog when the button is added
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["buttons"] })
+			if (onClose) onClose()
 		},
 		onError: (error) => {
 			console.error("Error adding button:", error)
@@ -67,6 +74,7 @@ export function useDeleteButton() {
 	const queryClient = useQueryClient()
 
 	return useMutation({
+		mutationKey: ["deleteButton"],
 		mutationFn: (id: string) => deleteButton(id),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["buttons"] })

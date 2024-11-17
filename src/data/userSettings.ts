@@ -93,5 +93,6 @@ export const defaultSettings = {
 	buttonShadowColor: "#e7e5e5",
 	isButtonShadow: false,
 	buttonIconColor: "#1e1e1e",
-	buttonHoverBackgroundColor: "#eeeeee"
+	buttonHoverBackgroundColor: "#eeeeee",
+	supportBanner: "NONE"
 }

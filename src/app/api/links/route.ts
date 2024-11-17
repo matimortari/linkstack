@@ -2,17 +2,16 @@ import { getSessionOrUnauthorized } from "@/src/lib/api"
 import { db } from "@/src/lib/db"
 import { NextRequest, NextResponse } from "next/server"
 
-// GET method for fetching user links
+// GET method for getting user links
 export async function GET(req: NextRequest) {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
-	const userLinks = await db.userLink.findMany({
-		where: { userId: session.user.id }
-	})
+	const userLinks = await db.userLink.findMany({ where: { userId: session.user.id } })
 	if (!userLinks) {
 		return NextResponse.json({ error: "User Links not found" }, { status: 404 })
 	}
+
 	return NextResponse.json(userLinks, { status: 200 })
 }
 
@@ -24,9 +23,7 @@ export async function POST(req: NextRequest) {
 	const { title, url } = await req.json()
 	if (!title || !url) return NextResponse.json({ error: "Invalid input" }, { status: 400 })
 
-	const newLink = await db.userLink.create({
-		data: { title, url, userId: session.user.id }
-	})
+	const newLink = await db.userLink.create({ data: { title, url, userId: session.user.id } })
 
 	return NextResponse.json(newLink)
 }
@@ -43,10 +40,7 @@ export async function PUT(req: NextRequest) {
 		return NextResponse.json({ error: "Link not found" }, { status: 404 })
 	}
 
-	const updatedLink = await db.userLink.update({
-		where: { id },
-		data: { title, url }
-	})
+	const updatedLink = await db.userLink.update({ where: { id }, data: { title, url } })
 
 	return NextResponse.json(updatedLink)
 }
@@ -65,5 +59,6 @@ export async function DELETE(req: NextRequest) {
 	}
 
 	await db.userLink.delete({ where: { id: Number(id) } })
+
 	return NextResponse.json({ id })
 }

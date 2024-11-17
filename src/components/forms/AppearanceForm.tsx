@@ -5,7 +5,7 @@ import {
 	SLUG_FONT_SIZES,
 	SLUG_FONT_WEIGHT_SIZES
 } from "@/src/data/userSettings"
-import { fetchUserData, fetchUserSettings, handleFormSubmit, resetSettings } from "@/src/lib/actions"
+import { getUserSettings, resetSettings } from "@/src/lib/actions"
 import "@/src/styles/inputs.css"
 import { Icon } from "@iconify/react"
 import { useSession } from "next-auth/react"
@@ -43,7 +43,7 @@ const RadioOptions = ({ options, name, value, onChange, label }) => (
 	</div>
 )
 
-export default function PreferencesForm() {
+export default function AppearanceForm() {
 	const { data: session } = useSession()
 	const [settings, setSettings] = useState(defaultSettings)
 	const [success, setSuccess] = useState("")
@@ -63,16 +63,16 @@ export default function PreferencesForm() {
 
 	useEffect(() => {
 		const loadUserData = async () => {
-			if (!session?.user) return console.error("No user session found")
+			if (!session?.user) {
+				console.error("No user session found")
+				return
+			}
+
 			try {
-				const response = await fetchUserData()
-				const userData = await response.json()
-				const { slug } = userData
-				const settingsResponse = await fetchUserSettings(slug)
-				const settingsData = await settingsResponse.json()
+				const settingsData = await getUserSettings()
 				setSettings(settingsData)
 			} catch (error) {
-				console.error("Error loading user data:", error)
+				console.error("Error loading user settings:", error)
 			}
 		}
 
@@ -93,15 +93,21 @@ export default function PreferencesForm() {
 		}
 	}
 
-	const handleSubmit = (e: React.FormEvent) => {
-		handleFormSubmit({
-			e,
-			url: "/api/preferences",
-			payload: settings,
-			setSuccess,
-			setError,
-			onSuccess: () => setSettings(settings)
-		})
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault()
+		try {
+			const res = await fetch("/api/preferences", {
+				method: "PUT",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(settings)
+			})
+			if (!res.ok) throw new Error(`Failed to update settings: ${res.statusText}`)
+			setSuccess("Updated successfully!")
+			setSettings(settings)
+		} catch (error) {
+			console.error("Error submitting form:", error)
+			setError("Failed to submit form.")
+		}
 	}
 
 	return (

@@ -2,17 +2,12 @@ import { getSessionOrUnauthorized } from "@/src/lib/api"
 import { db } from "@/src/lib/db"
 import { NextRequest, NextResponse } from "next/server"
 
-// GET method for fetching user data
+// GET method for getting user data
 export async function GET(req: NextRequest) {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response
 
-	const slug = session.user?.slug
-	if (!slug) {
-		return NextResponse.json({ error: "Invalid slug" }, { status: 400 })
-	}
-
-	const user = await db.user.findUnique({ where: { slug } })
+	const user = await db.user.findUnique({ where: { id: session.user.id } })
 	if (!user) {
 		return NextResponse.json({ error: "User not found" }, { status: 404 })
 	}

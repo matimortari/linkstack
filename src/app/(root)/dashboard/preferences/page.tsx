@@ -1,6 +1,7 @@
 "use client"
 
-import PreferencesForm from "@/src/components/forms/PreferencesForm"
+import AppearanceForm from "@/src/components/forms/AppearanceForm"
+import SupportBannerForm from "@/src/components/forms/SupportBannerForm"
 import Navbar from "@/src/components/Navbar"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
@@ -23,7 +24,13 @@ export default function Preferences() {
 				<div className="flex flex-col">
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Appearance Settings</h2>
-						<PreferencesForm />
+						<AppearanceForm />
+					</div>
+					<hr />
+
+					<div className="my-4 flex flex-col">
+						<h2 className="subtitle">Support Banner</h2>
+						<SupportBannerForm />
 					</div>
 					<hr />
 				</div>

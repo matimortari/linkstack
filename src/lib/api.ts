@@ -11,3 +11,16 @@ export async function getSessionOrUnauthorized() {
 
 	return { error: false, session }
 }
+
+// Generic API request function
+export const apiRequest = async (url: string, options: RequestInit) => {
+	try {
+		const res = await fetch(url, options)
+		if (!res.ok) throw new Error(`Error ${res.status}: ${res.statusText || "Unknown error"}`)
+
+		return res.json()
+	} catch (error) {
+		console.error("Network error:", error)
+		throw new Error("Network error occurred. Please try again later.")
+	}
+}

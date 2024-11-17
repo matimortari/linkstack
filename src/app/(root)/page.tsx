@@ -1,8 +1,6 @@
 "use client"
 
-import { getMessage } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
-import { useQuery } from "@tanstack/react-query"
 import { useSession } from "next-auth/react"
 import { Bowlby_One } from "next/font/google"
 import Image from "next/image"
@@ -17,12 +15,6 @@ export default function Home() {
 	if (status === "authenticated") {
 		redirect("/dashboard")
 	}
-
-	const { data, refetch } = useQuery({
-		queryKey: ["get-message"],
-		queryFn: getMessage,
-		enabled: false
-	})
 
 	return (
 		<div className="content-container relative min-h-screen overflow-hidden">
@@ -62,10 +54,7 @@ export default function Home() {
 
 				<section className="z-50 flex w-full max-w-xl flex-col items-center justify-center md:w-1/2">
 					<div className="flex flex-col">
-						<button className="btn rounded-md px-4 py-2" onClick={() => refetch()}>
-							Preview
-						</button>
-						{data && <p className="mt-4">Message: {data.message}</p>}
+						<button className="btn rounded-md px-4 py-2">Preview</button>
 					</div>
 				</section>
 			</main>
