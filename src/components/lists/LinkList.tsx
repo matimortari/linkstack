@@ -1,4 +1,5 @@
-import { deleteLink, getLinks } from "@/src/lib/actions"
+import { useDeleteLink } from "@/src/hooks/useMutations"
+import { getLinks } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
@@ -6,21 +7,14 @@ import AddLinkDialog from "../dialogs/AddLinkDialog"
 import UpdateLinkDialog from "../dialogs/UpdateLinkDialog"
 
 export default function LinkList() {
-	const [isAddLinkDialogOpen, setIsAddLinkDialogOpen] = useState(false) // State for Add Link Dialog
-	const [isUpdateLinkDialogOpen, setIsUpdateLinkDialogOpen] = useState(false) // State for Update Link Dialog
-	const [currentLink, setCurrentLink] = useState(null) // Current link for editing
-	const { data: userLinks, isLoading } = useQuery({ queryKey: ["links"], queryFn: getLinks })
+	const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
+	const [currentLink, setCurrentLink] = useState(null)
+	const { data: userLinks, isPending } = useQuery({ queryKey: ["links"], queryFn: getLinks })
 
-	const handleAddLink = () => {
-		setIsAddLinkDialogOpen(true)
-	}
+	const { mutate: deleteLinkMutation } = useDeleteLink()
 
-	const handleEditLink = (link) => {
-		setCurrentLink(link)
-		setIsUpdateLinkDialogOpen(true)
-	}
-
-	if (isLoading) return <p className="py-2 text-sm text-muted-foreground">Loading Links...</p>
+	if (isPending) return <p className="py-2 text-sm text-muted-foreground">Loading Links...</p>
 
 	return (
 		<>
@@ -33,10 +27,15 @@ export default function LinkList() {
 									{link.title} - {link.clicks} clicks
 								</a>
 
-								<button onClick={() => handleEditLink(link)}>
+								<button
+									onClick={() => {
+										setCurrentLink(link)
+										setIsUpdateDialogOpen(true)
+									}}
+								>
 									<Icon icon="material-symbols:edit-square-outline" className="icon h-4 w-4 text-muted-foreground" />
 								</button>
-								<button onClick={() => deleteLink(link.id)}>
+								<button onClick={() => deleteLinkMutation(link.id)}>
 									<Icon icon="material-symbols:delete-outline" className="icon h-4 w-4 text-destructive" />
 								</button>
 							</div>
@@ -46,14 +45,14 @@ export default function LinkList() {
 				))}
 			</ul>
 
-			{isAddLinkDialogOpen && <AddLinkDialog onClose={() => setIsAddLinkDialogOpen(false)} />}
+			{isAddDialogOpen && <AddLinkDialog onClose={() => setIsAddDialogOpen(false)} />}
 
-			{isUpdateLinkDialogOpen && currentLink && (
-				<UpdateLinkDialog onClose={() => setIsUpdateLinkDialogOpen(false)} linkData={currentLink} />
+			{isUpdateDialogOpen && currentLink && (
+				<UpdateLinkDialog onClose={() => setIsUpdateDialogOpen(false)} linkData={currentLink} />
 			)}
 
 			<div>
-				<button onClick={handleAddLink} className="btn">
+				<button onClick={() => setIsAddDialogOpen(true)} className="btn">
 					Add Link
 				</button>
 			</div>

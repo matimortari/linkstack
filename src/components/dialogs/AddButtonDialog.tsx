@@ -1,6 +1,5 @@
 import useDialog from "@/src/hooks/useDialog"
-import { addButton } from "@/src/lib/actions"
-import { useMutation } from "@tanstack/react-query"
+import { useAddButton } from "@/src/hooks/useMutations"
 import { useState } from "react"
 
 export default function AddButtonDialog({ onClose }) {
@@ -8,20 +7,8 @@ export default function AddButtonDialog({ onClose }) {
 	const [platform, setPlatform] = useState("")
 	const [icon, setIcon] = useState("")
 	const [url, setUrl] = useState("")
-	const [isLoading, setIsLoading] = useState(false)
 
-	const { mutate: addNewButton } = useMutation({
-		mutationFn: addButton,
-		onSuccess: () => {
-			onClose()
-			setPlatform("")
-			setIcon("")
-			setUrl("")
-		},
-		onError: (error: any) => {
-			setError(error.message || "Failed to add the button")
-		}
-	})
+	const { mutate: addNewButton, isPending } = useAddButton({ onClose })
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -31,7 +18,6 @@ export default function AddButtonDialog({ onClose }) {
 			return
 		}
 
-		setIsLoading(true)
 		addNewButton({ platform, icon, url, clicks: 0 })
 	}
 
@@ -72,8 +58,8 @@ export default function AddButtonDialog({ onClose }) {
 					)}
 
 					<div className="flex flex-row gap-2">
-						<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isLoading}>
-							{isLoading ? "Adding..." : "Add Link"}
+						<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
+							{isPending ? "Adding..." : "Add Link"}
 						</button>
 						<button onClick={onClose} className="btn">
 							Cancel

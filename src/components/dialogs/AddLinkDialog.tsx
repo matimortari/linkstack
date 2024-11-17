@@ -1,26 +1,13 @@
 import useDialog from "@/src/hooks/useDialog"
-import { addLink } from "@/src/lib/actions"
-import { useMutation } from "@tanstack/react-query"
+import { useAddLink } from "@/src/hooks/useMutations"
 import { useState } from "react"
 
 export default function AddLinkDialog({ onClose }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
-	const [isLoading, setIsLoading] = useState(false)
 
-	const { mutate: addNewLink } = useMutation({
-		mutationFn: addLink,
-		onSuccess: () => {
-			// Close the dialog and reset form state
-			onClose()
-			setTitle("")
-			setUrl("")
-		},
-		onError: (error: any) => {
-			setError(error.message || "Failed to add the link")
-		}
-	})
+	const { mutate: addNewLink, isPending } = useAddLink({ onClose })
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -30,7 +17,6 @@ export default function AddLinkDialog({ onClose }) {
 			return
 		}
 
-		setIsLoading(true)
 		addNewLink({ title, url, clicks: 0 })
 	}
 
@@ -64,8 +50,8 @@ export default function AddLinkDialog({ onClose }) {
 					)}
 
 					<div className="flex flex-row gap-2">
-						<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isLoading}>
-							{isLoading ? "Adding..." : "Add Link"}
+						<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
+							{isPending ? "Adding..." : "Add Link"}
 						</button>
 						<button onClick={onClose} className="btn">
 							Cancel
