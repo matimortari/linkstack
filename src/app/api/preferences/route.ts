@@ -1,3 +1,4 @@
+import { defaultSettings } from "@/src/data/userSettings"
 import { getSessionOrUnauthorized } from "@/src/lib/api"
 import { db } from "@/src/lib/db"
 import { NextRequest, NextResponse } from "next/server"
@@ -17,4 +18,16 @@ export async function GET(req: NextRequest) {
 }
 
 // PUT method for updating user settings or resetting to default
-// export async function PUT(req: NextRequest) {}
+export async function PUT(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	const settingsData = await req.json()
+	const updatedSettings = await db.userSettings.update({
+		where: { userId: session.user.id },
+		data: Object.keys(settingsData).length === 0 ? defaultSettings : settingsData
+	})
+
+	const message = Object.keys(settingsData).length === 0 ? "Settings reset to default" : "Settings updated successfully"
+	return NextResponse.json({ message, settings: updatedSettings }, { status: 200 })
+}

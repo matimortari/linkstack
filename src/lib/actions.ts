@@ -7,6 +7,16 @@ export const getMessage = async () => {
 	return res.json()
 }
 
+// Get user data
+export async function fetchUserData() {
+	return fetch("/api/user", { method: "GET" })
+}
+
+// Get user settings
+export async function fetchUserSettings(slug: any) {
+	return fetch("/api/preferences", { method: "GET" })
+}
+
 // Get user links
 export const getLinks = async () => {
 	const res = await fetch("/api/links", { method: "GET" })
@@ -80,4 +90,38 @@ export const addButton = async (newButton: UserButton) => {
 export async function deleteButton(id: string): Promise<string> {
 	await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
 	return id
+}
+
+// Update user settings
+export async function updateSettings(newSettings: object) {
+	return fetch("/api/preferences", {
+		method: "PUT",
+		body: JSON.stringify(newSettings)
+	})
+}
+
+// Reset user settings to default
+export async function resetSettings() {
+	return fetch("/api/preferences", {
+		method: "PUT",
+		body: JSON.stringify({})
+	})
+}
+
+// Handle form submission
+export async function handleFormSubmit({ e, url, payload, setSuccess, setError, onSuccess }) {
+	e.preventDefault()
+
+	try {
+		await fetch(url, {
+			method: "PUT",
+			body: JSON.stringify(payload)
+		})
+
+		setSuccess("Updated successfully!")
+		if (onSuccess) onSuccess()
+	} catch (error) {
+		console.error("Error submitting form:", error)
+		setError("Failed to submit form.")
+	}
 }
