@@ -31,8 +31,19 @@ export async function POST(req: NextRequest) {
 	return NextResponse.json(newButton)
 }
 
-// PUT method for updating a user social button
-// export async function PUT(req: NextRequest) {}
-
 // DELETE method for deleting a user social button
-// export async function DELETE(req: NextRequest) {}
+export async function DELETE(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	const id = req.nextUrl.searchParams.get("id")
+	if (!id) return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+
+	const existingButton = await db.userButton.findUnique({ where: { id: Number(id) } })
+	if (!existingButton || existingButton.userId !== session.user.id) {
+		return NextResponse.json({ error: "Social button not found" }, { status: 404 })
+	}
+
+	await db.userButton.delete({ where: { id: Number(id) } })
+	return NextResponse.json({ id })
+}

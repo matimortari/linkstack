@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server"
 // GET method for fetching user links
 export async function GET(req: NextRequest) {
 	const { error, session, response } = await getSessionOrUnauthorized()
-	if (error) return response // Return unauthorized response if session fails
+	if (error) return response
 
 	const userLinks = await db.userLink.findMany({
 		where: { userId: session.user.id }
@@ -52,4 +52,18 @@ export async function PUT(req: NextRequest) {
 }
 
 // DELETE method for deleting a user link
-// export async function DELETE(req: NextRequest) {}
+export async function DELETE(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	const id = req.nextUrl.searchParams.get("id")
+	if (!id) return NextResponse.json({ error: "Invalid input" }, { status: 400 })
+
+	const existingLink = await db.userLink.findUnique({ where: { id: Number(id) } })
+	if (!existingLink || existingLink.userId !== session.user.id) {
+		return NextResponse.json({ error: "Link not found" }, { status: 404 })
+	}
+
+	await db.userLink.delete({ where: { id: Number(id) } })
+	return NextResponse.json({ id })
+}

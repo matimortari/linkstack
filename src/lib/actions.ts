@@ -47,6 +47,10 @@ export const updateLink = async (updatedLink: UserLink) => {
 }
 
 // Delete an existing link by ID
+export async function deleteLink(id: string): Promise<string> {
+	await fetch(`/api/links?id=${id}`, { method: "DELETE" })
+	return id
+}
 
 // Get user social buttons
 export const getButtons = async () => {
@@ -73,3 +77,7 @@ export const addButton = async (newButton: UserButton) => {
 }
 
 // Delete an existing social button by ID
+export async function deleteButton(id: string): Promise<string> {
+	await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
+	return id
+}

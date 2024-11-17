@@ -1,4 +1,4 @@
-import { getButtons } from "@/src/lib/actions"
+import { deleteButton, getButtons } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import Link from "next/link"
@@ -19,7 +19,7 @@ export default function ButtonList() {
 						<Link href={button.url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2">
 							{button.icon && <Icon icon={button.icon} className="icon h-8 w-8" />}
 						</Link>
-						<button className="absolute bottom-0 right-0 p-1 text-destructive">
+						<button onClick={() => deleteButton(button.id)} className="absolute bottom-0 right-0 p-1 text-destructive">
 							<Icon icon="material-symbols:delete-outline" className="icon h-4 w-4" />
 						</button>
 					</li>

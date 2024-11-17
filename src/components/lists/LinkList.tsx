@@ -1,4 +1,4 @@
-import { getLinks } from "@/src/lib/actions"
+import { deleteLink, getLinks } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
@@ -36,7 +36,7 @@ export default function LinkList() {
 								<button onClick={() => handleEditLink(link)}>
 									<Icon icon="material-symbols:edit-square-outline" className="icon h-4 w-4 text-muted-foreground" />
 								</button>
-								<button onClick={() => {}}>
+								<button onClick={() => deleteLink(link.id)}>
 									<Icon icon="material-symbols:delete-outline" className="icon h-4 w-4 text-destructive" />
 								</button>
 							</div>
