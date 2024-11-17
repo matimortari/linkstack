@@ -17,8 +17,8 @@ export default function ButtonList() {
 	return (
 		<>
 			<ul className="flex flex-row gap-2 py-2">
-				{userButtons.map((button) => (
-					<li key={button.id} className="content-container relative">
+				{userButtons.map((button, index) => (
+					<li key={button.id || index} className="content-container relative">
 						<Link href={button.url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2">
 							{button.icon && <Icon icon={button.icon} className="icon h-8 w-8" />}
 						</Link>
@@ -32,7 +32,14 @@ export default function ButtonList() {
 				))}
 			</ul>
 
-			{isAddDialogOpen && <AddButtonDialog onClose={() => setIsAddDialogOpen(false)} />}
+			{isAddDialogOpen && (
+				<AddButtonDialog
+					onClose={() => setIsAddDialogOpen(false)}
+					addButton={(newButton) => {
+						userButtons.push(newButton)
+					}}
+				/>
+			)}
 
 			<div>
 				<button onClick={() => setIsAddDialogOpen(true)} className="btn">

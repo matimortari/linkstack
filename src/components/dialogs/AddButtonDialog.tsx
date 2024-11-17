@@ -1,55 +1,65 @@
+import { SOCIAL_ICONS } from "@/src/data/userSettings"
 import useDialog from "@/src/hooks/useDialog"
 import { useAddButton } from "@/src/hooks/useMutations"
+import { Icon } from "@iconify/react"
 import { useState } from "react"
 
-export default function AddButtonDialog({ onClose }) {
+export default function AddButtonDialog({ onClose, addButton }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
-	const [platform, setPlatform] = useState("")
-	const [icon, setIcon] = useState("")
+	const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null)
 	const [url, setUrl] = useState("")
+
+	const icon = selectedPlatform ? SOCIAL_ICONS[selectedPlatform] : "" // Get icon based on selected platform
 
 	const { mutate: addNewButton, isPending } = useAddButton({ onClose })
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
 
-		if (!platform || !icon || !url) {
+		if (!selectedPlatform || !url) {
 			setError("All fields are required")
 			return
 		}
 
-		addNewButton({ platform, icon, url, clicks: 0 })
+		addNewButton({ platform: selectedPlatform, icon, url, clicks: 0 })
+
+		addButton({ platform: selectedPlatform, icon, url })
+		onClose()
 	}
 
 	return (
 		<div className="expand-dialog fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-			<div ref={dialogRef} className="content-container w-full max-w-xl shadow-lg">
+			<div ref={dialogRef} className="content-container shadow-lg">
 				<h2 className="title mb-2">Add Button</h2>
 
 				<form onSubmit={handleSubmit} className="w-full">
-					<div className="mb-4 flex flex-col gap-4">
-						<input
-							type="text"
-							value={platform}
-							onChange={(e) => setPlatform(e.target.value)}
-							placeholder="Button platform"
-							className="form-container"
-						/>
-						<input
-							type="text"
-							value={icon}
-							onChange={(e) => setIcon(e.target.value)}
-							placeholder="Button icon"
-							className="form-container"
-						/>
-						<input
-							type="url"
-							value={url}
-							onChange={(e) => setUrl(e.target.value)}
-							placeholder="Button URL"
-							className="form-container"
-						/>
+					<div className="my-2 flex flex-col space-y-2">
+						<label className="text-sm font-medium">Select Platform:</label>
+						<div className="grid grid-cols-5 gap-1 md:grid-cols-9">
+							{Object.entries(SOCIAL_ICONS).map(([platform, icon]) => (
+								<div
+									key={platform}
+									onClick={() => setSelectedPlatform(platform)}
+									className={`flex cursor-pointer flex-col items-center justify-center rounded-lg p-1 ${selectedPlatform === platform ? "bg-muted" : "bg-black"}`} // Highlight selected platform
+								>
+									<Icon icon={icon} className="text-xl" />
+									<p className="mt-1 text-center text-xs">{platform.charAt(0).toUpperCase() + platform.slice(1)}</p>
+								</div>
+							))}
+						</div>
 					</div>
+
+					<input
+						type="url"
+						value={url}
+						onChange={(e) => {
+							setUrl(e.target.value)
+							setError("")
+						}}
+						placeholder="Button URL"
+						className="form-container"
+						required
+					/>
 
 					{error && (
 						<div className="mb-4 text-sm text-destructive">
