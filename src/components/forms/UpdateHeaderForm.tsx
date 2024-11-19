@@ -1,34 +1,51 @@
-import { useState } from "react"
+"use client"
+
+import { useUpdateDescription } from "@/src/hooks/useMutations"
+import { Icon } from "@iconify/react"
+import { useEffect, useState } from "react"
 
 export default function UpdateHeaderForm() {
-	const [description, setDescription] = useState("")
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
-	const [success, setSuccess] = useState(false)
+	const [localDescription, setLocalDescription] = useState("")
+	const { mutate, isPending, error, isSuccess } = useUpdateDescription()
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	useEffect(() => {
+		setLocalDescription("")
+	}, [])
+
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		setLoading(true)
-		setError(null)
-		setSuccess(false)
+		mutate(localDescription)
+	}
+
+	const handleReset = () => {
+		setLocalDescription("")
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="form-container my-4 flex flex-row items-center gap-2">
-			<input
-				type="text"
-				value={description}
-				onChange={(e) => setDescription(e.target.value)}
-				placeholder="Enter new header description"
-				className="input flex-1 truncate text-muted-foreground"
-			/>
+		<>
+			<form onSubmit={handleSubmit} className="form-container w-full">
+				<input
+					type="text"
+					value={localDescription}
+					onChange={(e) => setLocalDescription(e.target.value)}
+					placeholder="Enter new header description"
+					className="input flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-muted-foreground"
+				/>
 
-			{error && <p className="mb-2 text-sm text-destructive">{error}</p>}
-			{success && <p className="mb-2 text-sm text-accent">Description updated successfully!</p>}
+				<div>
+					<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
+						<Icon icon="material-symbols:update" className="icon text-xl" />
+						{isPending ? "Updating..." : "Update"}
+					</button>
+					<button type="button" className="btn bg-destructive text-destructive-foreground" onClick={handleReset}>
+						<Icon icon="material-symbols:delete-history" className="icon text-xl" />
+						Clear
+					</button>
+				</div>
+			</form>
 
-			<button type="submit" className={`btn ${loading ? "bg-accent" : "bg-accent"}`} disabled={loading}>
-				{loading ? "Updating..." : "Update"}
-			</button>
-		</form>
+			{isSuccess && <p className="mt-2 font-bold text-primary">Description updated successfully!</p>}
+			{error && <p className="mt-2 font-bold text-destructive">{(error as Error).message}</p>}
+		</>
 	)
 }

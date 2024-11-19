@@ -6,6 +6,50 @@ export const getUserData = async () => {
 	return res.json()
 }
 
+// Update user slug
+export const updateSlug = async (newSlug: string): Promise<void> => {
+	const response = await fetch("/api/user", {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ newSlug })
+	})
+
+	if (!response.ok) {
+		const errorData = await response.json()
+		throw new Error(errorData.message || "Failed to update slug.")
+	}
+}
+
+// Update user description
+export const updateDescription = async (newDescription: string): Promise<void> => {
+	const response = await fetch("/api/user", {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({ newDescription })
+	})
+
+	if (!response.ok) {
+		const errorData = await response.json()
+		throw new Error(errorData.message || "Failed to update description.")
+	}
+}
+
+// Reset user description
+export const resetDescription = ({
+	setDescription,
+	setLocalDescription
+}: {
+	setDescription: (value: string) => void
+	setLocalDescription: (value: string) => void
+}) => {
+	setDescription("")
+	setLocalDescription("")
+}
+
 // Get user settings
 export const getUserSettings = async () => {
 	const res = await fetch("/api/preferences", { method: "GET" })
@@ -70,7 +114,7 @@ export const updateLink = async (updatedLink: UserLink) => {
 
 // Delete an existing link by ID
 export const deleteLink = async (id: string): Promise<string> => {
-	const res = await fetch(`/api/links?id=${id}`, { method: "DELETE" })
+	await fetch(`/api/links?id=${id}`, { method: "DELETE" })
 	return id
 }
 
@@ -92,6 +136,6 @@ export const addButton = async (newButton: UserButton) => {
 
 // Delete an existing social button by ID
 export const deleteButton = async (id: string): Promise<string> => {
-	const res = await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
+	await fetch(`/api/buttons?id=${id}`, { method: "DELETE" })
 	return id
 }

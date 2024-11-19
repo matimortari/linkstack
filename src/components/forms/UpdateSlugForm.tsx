@@ -1,34 +1,36 @@
+import { useUpdateSlug } from "@/src/hooks/useMutations"
+import { Icon } from "@iconify/react"
 import { useState } from "react"
 
 export default function UpdateSlugForm() {
 	const [slug, setSlug] = useState("")
-	const [loading, setLoading] = useState(false)
-	const [error, setError] = useState<string | null>(null)
-	const [success, setSuccess] = useState(false)
+	const { mutate, isPending, error, isSuccess } = useUpdateSlug()
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		setLoading(true)
-		setError(null)
-		setSuccess(false)
+		mutate(slug)
 	}
 
 	return (
-		<form onSubmit={handleSubmit} className="form-container my-4 flex flex-row items-center gap-2">
-			<input
-				type="text"
-				value={slug}
-				onChange={(e) => setSlug(e.target.value)}
-				placeholder="Enter new slug"
-				className="input flex-1 truncate text-muted-foreground"
-			/>
+		<>
+			<form onSubmit={handleSubmit} className="form-container my-4 flex flex-row items-center gap-2">
+				<input
+					type="text"
+					value={slug}
+					onChange={(e) => setSlug(e.target.value)}
+					placeholder="Enter new slug"
+					className="input flex-1 truncate text-muted-foreground"
+					required
+				/>
 
-			{error && <p className="mb-2 text-sm text-destructive">{error}</p>}
-			{success && <p className="mb-2 text-sm text-accent">Slug updated successfully!</p>}
+				<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
+					<Icon icon="material-symbols:update" className="icon text-xl" />
+					{isPending ? "Updating..." : "Update"}
+				</button>
+			</form>
 
-			<button type="submit" className={`btn ${loading ? "bg-accent" : "bg-accent"}`} disabled={loading}>
-				{loading ? "Updating..." : "Update"}
-			</button>
-		</form>
+			{isSuccess && <p className="mt-2 font-bold text-primary">Slug updated successfully!</p>}
+			{error && <p className="mt-2 font-bold text-destructive">{(error as Error).message}</p>}
+		</>
 	)
 }

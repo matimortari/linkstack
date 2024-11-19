@@ -1,5 +1,45 @@
-import { addButton, addLink, deleteButton, deleteLink, updateLink } from "@/src/lib/actions"
+import {
+	addButton,
+	addLink,
+	deleteButton,
+	deleteLink,
+	updateDescription,
+	updateLink,
+	updateSlug
+} from "@/src/lib/actions"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+
+// Hook to update user slug
+export function useUpdateSlug() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ["updateSlug"],
+		mutationFn: updateSlug, // Use the imported action function
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["user"] })
+		},
+		onError: (error) => {
+			console.error("Error updating slug:", error)
+		}
+	})
+}
+
+// Hook to update user description
+export function useUpdateDescription() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ["updateDescription"],
+		mutationFn: updateDescription, // Use the imported action function
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["user"] })
+		},
+		onError: (error) => {
+			console.error("Error updating description:", error)
+		}
+	})
+}
 
 // Hook to add a new link
 export function useAddLink({ onClose }) {
@@ -27,8 +67,7 @@ export function useUpdateLink({ onClose }) {
 		mutationFn: updateLink,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["links"] })
-
-			onClose()
+			if (onClose) onClose()
 		},
 		onError: (error) => {
 			console.error("Error updating link:", error)

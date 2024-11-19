@@ -16,7 +16,29 @@ export async function GET(req: NextRequest) {
 }
 
 // PUT method for updating user data
-// export async function PUT(req: NextRequest) {}
+export async function PUT(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	const { newSlug, newDescription } = await req.json()
+	const updateData: { slug?: string; description?: string | null } = {
+		...(newSlug && typeof newSlug === "string" && { slug: newSlug }),
+		// Allow empty string for description by checking if it's defined (not undefined)
+		...(newDescription !== undefined && typeof newDescription === "string" && { description: newDescription })
+	}
+
+	// Check if `updateData` is empty after conditionally adding properties
+	if (!Object.keys(updateData).length) {
+		return NextResponse.json({ error: "No valid data to update" }, { status: 400 })
+	}
+
+	const updatedUser = await db.user.update({
+		where: { id: session.user.id },
+		data: updateData
+	})
+
+	return NextResponse.json({ message: "User updated successfully", updatedUser, status: 200 })
+}
 
 // DELETE method for deleting user account
 // export async function DELETE(req: NextRequest) {}
