@@ -1,4 +1,5 @@
 import { useUpdateSlug } from "@/src/hooks/useMutations"
+import { generateSlug } from "@/src/lib/utils"
 import { Icon } from "@iconify/react"
 import { useState } from "react"
 
@@ -9,6 +10,11 @@ export default function UpdateSlugForm() {
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
 		mutate(slug)
+	}
+
+	const handleGenerateSlug = () => {
+		const newSlug = generateSlug(slug)
+		setSlug(newSlug)
 	}
 
 	return (
@@ -26,6 +32,10 @@ export default function UpdateSlugForm() {
 				<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
 					<Icon icon="material-symbols:update" className="icon text-xl" />
 					{isPending ? "Updating..." : "Update"}
+				</button>
+				<button type="button" className="btn bg-primary text-primary-foreground" onClick={handleGenerateSlug}>
+					<Icon icon="icon-park-outline:magic-wand" className="icon text-xl" />
+					Random Slug
 				</button>
 			</form>
 
