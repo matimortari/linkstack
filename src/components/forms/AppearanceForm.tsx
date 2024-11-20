@@ -5,49 +5,31 @@ import {
 	SLUG_FONT_SIZES,
 	SLUG_FONT_WEIGHT_SIZES
 } from "@/src/data/userSettings"
-import { getUserSettings, resetSettings } from "@/src/lib/actions"
+import { useResetSettings, useUpdateSettings } from "@/src/hooks/useMutations"
+import { getUserSettings } from "@/src/lib/actions"
 import "@/src/styles/inputs.css"
 import { Icon } from "@iconify/react"
-import { useSession } from "next-auth/react"
+import { useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
-
-const CheckboxInput = ({ id, label, checked, onChange }) => (
-	<div className="my-2 flex items-center space-x-2">
-		<input id={id} type="checkbox" checked={checked} onChange={onChange} />
-		<label htmlFor={id} className="font-semibold">
-			{label}
-		</label>
-	</div>
-)
-
-const ColorInput = ({ id, label, value, onChange, disabled = false }) => (
-	<div className="my-2 flex items-center space-x-2">
-		<input id={id} type="color" value={value} onChange={onChange} disabled={disabled} />
-		<label htmlFor={id} className={`font-semibold ${disabled ? "text-muted line-through" : ""}`}>
-			{label}
-		</label>
-	</div>
-)
-
-const RadioOptions = ({ options, name, value, onChange, label }) => (
-	<div className="my-2">
-		<p className="mb-2 font-bold">{label}</p>
-		<div className="space-y-1">
-			{options.map((option) => (
-				<label key={option.value} className="flex items-center space-x-2 text-xs">
-					<input type="radio" name={name} value={option.value} checked={value === option.value} onChange={onChange} />
-					<span className="font-normal">{option.label}</span>
-				</label>
-			))}
-		</div>
-	</div>
-)
+import { CheckboxInput, ColorInput, RadioOptions } from "./Inputs"
 
 export default function AppearanceForm() {
-	const { data: session } = useSession()
 	const [settings, setSettings] = useState(defaultSettings)
-	const [success, setSuccess] = useState("")
-	const [error, setError] = useState("")
+	const { data: userSettings, isPending, isError } = useQuery({ queryKey: ["settings"], queryFn: getUserSettings })
+	const { mutate: resetSettingsMutation, isSuccess: resetSuccess, isError: resetError } = useResetSettings()
+	const { mutate: updateSettingsMutation, isSuccess: updateSuccess, isError: updateError } = useUpdateSettings()
+
+	useEffect(() => {
+		if (userSettings) {
+			setSettings(userSettings)
+		}
+	}, [userSettings])
+
+	useEffect(() => {
+		if (resetSuccess) {
+			setSettings(defaultSettings)
+		}
+	}, [resetSuccess])
 
 	const handleColorChange = (key) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSettings((prev) => ({ ...prev, [key]: e.target.value }))
@@ -61,53 +43,18 @@ export default function AppearanceForm() {
 		setSettings((prev) => ({ ...prev, [key]: e.target.checked }))
 	}
 
-	useEffect(() => {
-		const loadUserData = async () => {
-			if (!session?.user) {
-				console.error("No user session found")
-				return
-			}
-
-			try {
-				const settingsData = await getUserSettings()
-				setSettings(settingsData)
-			} catch (error) {
-				console.error("Error loading user settings:", error)
-			}
-		}
-
-		loadUserData()
-	}, [session])
-
-	const handleReset = async (e: React.MouseEvent) => {
-		if (e) e.preventDefault()
-
-		try {
-			const result = await resetSettings()
-			setSettings(result.settings)
-			setSuccess("Settings reset to default.")
-		} catch (error) {
-			console.error("Error resetting user settings:", error)
-			setError("Failed to reset user settings.")
-		}
-	}
-
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleReset = (e) => {
 		e.preventDefault()
-		try {
-			const res = await fetch("/api/preferences", {
-				method: "PUT",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify(settings)
-			})
-			if (!res.ok) throw new Error(`Failed to update settings: ${res.statusText}`)
-			setSuccess("Updated successfully!")
-			setSettings(settings)
-		} catch (error) {
-			console.error("Error submitting form:", error)
-			setError("Failed to submit form.")
-		}
+		resetSettingsMutation()
 	}
+
+	const handleSubmit = (e) => {
+		e.preventDefault()
+		updateSettingsMutation(settings)
+	}
+
+	if (isPending) return <p className="py-2 text-sm text-muted-foreground">Loading Settings...</p>
+	if (isError) return <p className="py-2 text-sm text-muted-foreground">Failed to load settings.</p>
 
 	return (
 		<>
@@ -121,14 +68,12 @@ export default function AppearanceForm() {
 						value={settings.backgroundColor}
 						onChange={handleColorChange("backgroundColor")}
 					/>
-
 					<ColorInput
 						id="slugTextColor"
 						label="Username Font Color"
 						value={settings.slugTextColor}
 						onChange={handleColorChange("slugTextColor")}
 					/>
-
 					<ColorInput
 						id="headerTextColor"
 						label="Header Font Color"
@@ -136,7 +81,6 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("headerTextColor")}
 					/>
 					<hr className="max-w-xs" />
-
 					<RadioOptions
 						name="slugTextSize"
 						label="Username Font Size"
@@ -144,7 +88,6 @@ export default function AppearanceForm() {
 						value={settings.slugTextSize}
 						onChange={handleRadioChange("slugTextSize")}
 					/>
-
 					<RadioOptions
 						name="slugTextWeight"
 						label="Username Font Weight"
@@ -163,14 +106,12 @@ export default function AppearanceForm() {
 						value={settings.buttonBackgroundColor}
 						onChange={handleColorChange("buttonBackgroundColor")}
 					/>
-
 					<ColorInput
 						id="buttonIconColor"
 						label="Social Button Icon Color"
 						value={settings.buttonIconColor}
 						onChange={handleColorChange("buttonIconColor")}
 					/>
-
 					<ColorInput
 						id="buttonHoverBackgroundColor"
 						label="Social Button Hover Background Color"
@@ -178,14 +119,12 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("buttonHoverBackgroundColor")}
 					/>
 					<hr className="max-w-xs" />
-
 					<CheckboxInput
 						id="isButtonShadow"
 						label="Enable Social Button Shadow"
 						checked={settings.isButtonShadow}
 						onChange={handleCheckboxChange("isButtonShadow")}
 					/>
-
 					<ColorInput
 						id="buttonShadowColor"
 						label="Social Button Shadow Color"
@@ -194,7 +133,6 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("buttonShadowColor")}
 					/>
 					<hr className="max-w-xs" />
-
 					<h1 className="subtitle my-2">Link Buttons</h1>
 					<hr className="max-w-xs" />
 					<ColorInput
@@ -203,14 +141,12 @@ export default function AppearanceForm() {
 						value={settings.linkBackgroundColor}
 						onChange={handleColorChange("linkBackgroundColor")}
 					/>
-
 					<ColorInput
 						id="linkTextColor"
 						label="Link Button Font Color"
 						value={settings.linkTextColor}
 						onChange={handleColorChange("linkTextColor")}
 					/>
-
 					<ColorInput
 						id="linkHoverBackgroundColor"
 						label="Link Button Hover Background Color"
@@ -218,14 +154,12 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("linkHoverBackgroundColor")}
 					/>
 					<hr className="max-w-xs" />
-
 					<CheckboxInput
 						id="isLinkShadow"
 						label="Enable Link Button Shadow"
 						checked={settings.isLinkShadow}
 						onChange={handleCheckboxChange("isLinkShadow")}
 					/>
-
 					<ColorInput
 						id="linkShadowColor"
 						label="Link Button Shadow Color"
@@ -234,7 +168,6 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("linkShadowColor")}
 					/>
 					<hr className="max-w-xs" />
-
 					<RadioOptions
 						name="linkBorderRadius"
 						label="Link Button Corner Radius"
@@ -242,7 +175,6 @@ export default function AppearanceForm() {
 						value={settings.linkBorderRadius}
 						onChange={handleRadioChange("linkBorderRadius")}
 					/>
-
 					<RadioOptions
 						name="linkPadding"
 						label="Link Button Padding"
@@ -264,8 +196,11 @@ export default function AppearanceForm() {
 				</div>
 			</form>
 
-			{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
-			{success && <p className="mt-2 font-bold text-accent">{success}</p>}
+			{resetSuccess && <p className="mt-2 font-bold text-accent">Settings reset to default.</p>}
+			{resetError && <p className="mt-2 font-bold text-destructive">Failed to reset settings.</p>}
+
+			{updateSuccess && <p className="mt-2 font-bold text-accent">Settings updated successfully!</p>}
+			{updateError && <p className="mt-2 font-bold text-destructive">Failed to update settings.</p>}
 		</>
 	)
 }

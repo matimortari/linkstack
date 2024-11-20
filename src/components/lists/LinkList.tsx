@@ -11,7 +11,6 @@ export default function LinkList() {
 	const [isUpdateDialogOpen, setIsUpdateDialogOpen] = useState(false)
 	const [currentLink, setCurrentLink] = useState(null)
 	const { data: userLinks, isPending } = useQuery({ queryKey: ["links"], queryFn: getLinks })
-
 	const { mutate: deleteLinkMutation } = useDeleteLink()
 
 	if (isPending) return <p className="py-2 text-sm text-muted-foreground">Loading Links...</p>

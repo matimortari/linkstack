@@ -9,7 +9,6 @@ import AddButtonDialog from "../dialogs/AddButtonDialog"
 export default function ButtonList() {
 	const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 	const { data: userButtons, isPending } = useQuery({ queryKey: ["buttons"], queryFn: getButtons })
-
 	const { mutate: deleteButtonMutation } = useDeleteButton()
 
 	if (isPending) return <p className="py-2 text-sm text-muted-foreground">Loading Social Buttons...</p>

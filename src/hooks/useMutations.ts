@@ -3,9 +3,11 @@ import {
 	addLink,
 	deleteButton,
 	deleteLink,
+	resetSettings,
 	updateDescription,
 	updateLink,
-	updateSlug
+	updateSlug,
+	updateUserSettings
 } from "@/src/lib/actions"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 
@@ -37,6 +39,39 @@ export function useUpdateDescription() {
 		},
 		onError: (error) => {
 			console.error("Error updating description:", error)
+		}
+	})
+}
+
+// Hook for resetting user settings
+export function useResetSettings() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ["resetSettings"],
+		mutationFn: resetSettings,
+		onSuccess: (data) => {
+			queryClient.invalidateQueries({ queryKey: ["userSettings"] })
+			return data.settings
+		},
+		onError: (error) => {
+			console.error("Error resetting settings:", error)
+		}
+	})
+}
+
+// Hook for updating user settings
+export function useUpdateSettings() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ["updateUserSettings"],
+		mutationFn: updateUserSettings,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["userSettings"] })
+		},
+		onError: (error) => {
+			console.error("Error updating settings:", error)
 		}
 	})
 }
