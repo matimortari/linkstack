@@ -18,13 +18,13 @@ export default function LinkList() {
 
 	return (
 		<>
-			<ul className="grid grid-cols-1 gap-2 py-2 md:grid-cols-2">
+			<ul className="my-2 grid grid-cols-1 gap-2 md:grid-cols-2">
 				{userLinks.map((link) => (
 					<li key={link.id} className="content-container flex flex-row gap-1">
 						<div className="flex flex-col">
 							<div className="flex flex-row gap-1">
 								<a href={link.url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2">
-									{link.title} - {link.clicks} clicks
+									{link.title}
 								</a>
 
 								<button

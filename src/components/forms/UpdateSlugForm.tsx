@@ -19,7 +19,7 @@ export default function UpdateSlugForm() {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit} className="form-container my-4 flex flex-row items-center gap-2">
+			<form onSubmit={handleSubmit} className="form-container my-2 max-w-md">
 				<input
 					type="text"
 					value={slug}
@@ -29,14 +29,16 @@ export default function UpdateSlugForm() {
 					required
 				/>
 
-				<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
-					<Icon icon="material-symbols:update" className="icon text-xl" />
-					{isPending ? "Updating..." : "Update"}
-				</button>
-				<button type="button" className="btn bg-primary text-primary-foreground" onClick={handleGenerateSlug}>
-					<Icon icon="icon-park-outline:magic-wand" className="icon text-xl" />
-					Random Slug
-				</button>
+				<div className="flex flex-row gap-1">
+					<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
+						<Icon icon="material-symbols:update" className="icon text-xl" />
+						{isPending ? "Updating..." : "Update"}
+					</button>
+					<button type="button" className="btn bg-secondary text-secondary-foreground" onClick={handleGenerateSlug}>
+						<Icon icon="icon-park-outline:magic-wand" className="icon text-xl" />
+						Random Slug
+					</button>
+				</div>
 			</form>
 
 			{isSuccess && <p className="mt-2 font-bold text-primary">Slug updated successfully!</p>}

@@ -40,7 +40,7 @@ export default function SupportBannerForm() {
 
 	return (
 		<>
-			<form className="flex flex-col gap-2">
+			<form className="my-2 flex max-w-md flex-col gap-2">
 				<select
 					value={selectedOption}
 					onChange={(event) => setSelectedOption(event.target.value)}

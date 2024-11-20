@@ -16,7 +16,7 @@ export default function ButtonList() {
 
 	return (
 		<>
-			<ul className="flex flex-row gap-2 py-2">
+			<ul className="my-2 flex flex-row gap-2">
 				{userButtons.map((button, index) => (
 					<li key={button.id || index} className="content-container relative">
 						<Link href={button.url} target="_blank" rel="noopener noreferrer" className="flex flex-row gap-2">

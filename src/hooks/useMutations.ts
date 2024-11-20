@@ -15,7 +15,7 @@ export function useUpdateSlug() {
 
 	return useMutation({
 		mutationKey: ["updateSlug"],
-		mutationFn: updateSlug, // Use the imported action function
+		mutationFn: updateSlug,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["user"] })
 		},
@@ -31,7 +31,7 @@ export function useUpdateDescription() {
 
 	return useMutation({
 		mutationKey: ["updateDescription"],
-		mutationFn: updateDescription, // Use the imported action function
+		mutationFn: updateDescription,
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["user"] })
 		},
