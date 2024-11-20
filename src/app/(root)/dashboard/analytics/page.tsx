@@ -1,6 +1,7 @@
 "use client"
 
 import Navbar from "@/src/components/Navbar"
+import Preview from "@/src/components/Preview"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
 export default function Analytics() {
@@ -24,6 +25,7 @@ export default function Analytics() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
+				<Preview />
 			</aside>
 		</div>
 	)

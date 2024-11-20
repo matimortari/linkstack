@@ -5,6 +5,7 @@ import UpdateSlugForm from "@/src/components/forms/UpdateSlugForm"
 import ButtonList from "@/src/components/lists/ButtonList"
 import LinkList from "@/src/components/lists/LinkList"
 import Navbar from "@/src/components/Navbar"
+import Preview from "@/src/components/Preview"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
 export default function Dashboard() {
@@ -54,6 +55,7 @@ export default function Dashboard() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
+				<Preview />
 			</aside>
 		</div>
 	)

@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 
-export default function LinkItem({ url, title, settings, linkId }) {
+export default function UserLink({ url, title, settings, linkId }) {
 	const [isHovered, setIsHovered] = useState(false)
 
 	return (

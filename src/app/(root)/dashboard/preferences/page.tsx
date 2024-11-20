@@ -3,6 +3,7 @@
 import AppearanceForm from "@/src/components/forms/AppearanceForm"
 import SupportBannerForm from "@/src/components/forms/SupportBannerForm"
 import Navbar from "@/src/components/Navbar"
+import Preview from "@/src/components/Preview"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 
 export default function Preferences() {
@@ -38,6 +39,7 @@ export default function Preferences() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
+				<Preview />
 			</aside>
 		</div>
 	)
