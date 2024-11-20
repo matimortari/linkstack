@@ -16,7 +16,7 @@ Free website for aggregating and managing your links & social media profiles! Ba
 - **Feedback Form:** Send feedback to the developer and leave a rating if you want.
 - **Theme Switch:** Toggle between light and dark theme.
 
-## 🖧 Stack
+## 🛠️ Stack
 
 - **Next.js** for routing & server-side rendering.
 - **NextAuth** for authentication with Google & GitHub.

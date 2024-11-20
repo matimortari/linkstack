@@ -38,12 +38,12 @@ export default function Home() {
 						<h1 className={`text-3xl md:text-5xl ${bowlby.className}`}>Keep all your stuff together!</h1>
 						<h2 className={`text-xl md:text-2xl ${bowlby.className}`}>Your link-in-bio page 🔗</h2>
 						<p>
-							Welcome to <strong>LinkSphere</strong>! Share your links, social profiles, contact info, and more in one
+							Welcome to <strong>LinkStack</strong>! Share your links, social profiles, contact info, and more in one
 							page. Create and customize your page and share it with your audience.
 						</p>
 
 						<form className="form-container">
-							<span className="text-muted-foreground">linksphere-live.vercel.app/</span>
+							<span className="text-muted-foreground">linkstack-live.vercel.app/</span>
 							<input type="text" placeholder="your_name" className="input flex-1" />
 							<Link href="/login" className="btn bg-primary text-primary-foreground">
 								Get Started!
