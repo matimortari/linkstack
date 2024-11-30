@@ -1,3 +1,5 @@
+"use client"
+
 import UpdateHeaderForm from "@/src/components/forms/UpdateHeaderForm"
 import UpdateSlugForm from "@/src/components/forms/UpdateSlugForm"
 import ButtonList from "@/src/components/lists/ButtonList"

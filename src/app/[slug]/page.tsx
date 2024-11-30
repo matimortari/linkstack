@@ -63,7 +63,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 								icon={button.icon}
 								settings={settings}
 								buttonId={button.id}
-								userId={userId} // Pass userId to track button click
+								userId={userId}
 							/>
 						))}
 					</ul>
@@ -80,7 +80,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 								title={link.title}
 								settings={settings}
 								linkId={link.id}
-								userId={userId} // Pass userId to track link click
+								userId={userId}
 							/>
 						))}
 					</ul>

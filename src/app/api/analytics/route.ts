@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 export async function POST(req: NextRequest) {
 	try {
-		const { id, type, userId } = await req.json() // Ensure `userId` is passed to the API
+		const { id, type, userId } = await req.json()
 
 		// Format today's date to match the format in the UserStats table
 		const today = new Date().toISOString().split("T")[0] // Format: 'YYYY-MM-DD'
@@ -96,10 +96,8 @@ export async function POST(req: NextRequest) {
 			}
 		}
 
-		// Return success message
 		return NextResponse.json({ message: "Click tracked successfully!" }, { status: 200 })
 	} catch (error) {
-		// Handle errors by returning a server error status
 		return NextResponse.json({ error: "Failed to track click" }, { status: 500 })
 	}
 }

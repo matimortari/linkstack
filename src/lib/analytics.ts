@@ -37,7 +37,7 @@ export async function trackClick(id: string, type: "link" | "button", userId: st
 			headers: {
 				"Content-Type": "application/json"
 			},
-			body: JSON.stringify({ id, type, userId }) // Include userId here
+			body: JSON.stringify({ id, type, userId })
 		})
 	} catch (error) {
 		console.error("Error tracking click:", error)
