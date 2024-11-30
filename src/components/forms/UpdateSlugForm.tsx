@@ -1,11 +1,22 @@
+"use client"
+
 import { useUpdateSlug } from "@/src/hooks/useMutations"
 import { generateSlug } from "@/src/lib/utils"
 import { Icon } from "@iconify/react"
-import { useState } from "react"
+import { useSession } from "next-auth/react"
+import { useEffect, useState } from "react"
 
 export default function UpdateSlugForm() {
 	const [slug, setSlug] = useState("")
+	const [currentSlug, setCurrentSlug] = useState("")
+	const { data: session } = useSession()
 	const { mutate, isPending, error, isSuccess } = useUpdateSlug()
+
+	useEffect(() => {
+		if (session) {
+			setCurrentSlug(session?.user?.slug)
+		}
+	}, [session])
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -19,12 +30,13 @@ export default function UpdateSlugForm() {
 
 	return (
 		<>
-			<form onSubmit={handleSubmit} className="form-container my-2 max-w-md">
+			<form onSubmit={handleSubmit} className="form-container my-2 max-w-xl">
+				<span className="text-muted-foreground">linkstack-live.vercel.app/</span>
 				<input
 					type="text"
 					value={slug}
 					onChange={(e) => setSlug(e.target.value)}
-					placeholder="Enter new slug"
+					placeholder={currentSlug}
 					className="input flex-1 truncate text-muted-foreground"
 					required
 				/>
