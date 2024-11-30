@@ -8,11 +8,13 @@ import UserLink from "./UserLink"
 export default function Preview() {
 	const { data: session } = useSession()
 
+	// Loading state
 	if (!session) {
 		return <p className="text-sm text-muted-foreground">Loading Preview...</p>
 	}
 
-	const { description, links, image, buttons, settings, slug } = session.user || {}
+	// Destructure required properties
+	const { description, links, image, buttons, settings, slug, id: userId } = session.user || {}
 
 	return (
 		<div
@@ -47,6 +49,7 @@ export default function Preview() {
 								icon={button.icon}
 								settings={settings}
 								buttonId={button.id}
+								userId={userId}
 							/>
 						))}
 					</ul>
@@ -57,7 +60,14 @@ export default function Preview() {
 				{links && links.length > 0 ? (
 					<ul className="space-y-4">
 						{links.map((link) => (
-							<UserLink key={link.id} url={link.url} title={link.title} settings={settings} linkId={link.id} />
+							<UserLink
+								key={link.id}
+								url={link.url}
+								title={link.title}
+								settings={settings}
+								linkId={link.id}
+								userId={userId}
+							/>
 						))}
 					</ul>
 				) : (

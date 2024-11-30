@@ -1,3 +1,5 @@
+"use client"
+
 import { useDeleteLink } from "@/src/hooks/useMutations"
 import { getLinks } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"

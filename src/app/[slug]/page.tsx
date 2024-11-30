@@ -1,6 +1,7 @@
 import SupportBanner from "@/src/components/SupportBanner"
 import UserButton from "@/src/components/UserButton"
 import UserLink from "@/src/components/UserLink"
+import { trackPageVisit } from "@/src/lib/analytics"
 import { db } from "@/src/lib/db"
 import Image from "next/image"
 
@@ -16,6 +17,8 @@ export default async function UserPage({ params }: { params: { slug: string } })
 		}
 	})
 
+	await trackPageVisit(slug)
+
 	if (!user) {
 		return (
 			<div className="main-container">
@@ -26,7 +29,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 		)
 	}
 
-	const { description, userLinks, image, userButtons, settings } = user
+	const { description, userLinks, image, userButtons, settings, id: userId } = user
 
 	return (
 		<div className="min-h-screen p-12" style={{ backgroundColor: settings?.backgroundColor }}>
@@ -60,6 +63,7 @@ export default async function UserPage({ params }: { params: { slug: string } })
 								icon={button.icon}
 								settings={settings}
 								buttonId={button.id}
+								userId={userId} // Pass userId to track button click
 							/>
 						))}
 					</ul>
@@ -70,7 +74,14 @@ export default async function UserPage({ params }: { params: { slug: string } })
 				{userLinks.length > 0 ? (
 					<ul className="space-y-4">
 						{userLinks.map((link) => (
-							<UserLink key={link.id} url={link.url} title={link.title} settings={settings} linkId={link.id} />
+							<UserLink
+								key={link.id}
+								url={link.url}
+								title={link.title}
+								settings={settings}
+								linkId={link.id}
+								userId={userId} // Pass userId to track link click
+							/>
 						))}
 					</ul>
 				) : (

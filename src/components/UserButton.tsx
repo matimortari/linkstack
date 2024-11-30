@@ -2,13 +2,18 @@
 
 import { Icon } from "@iconify/react"
 import { useState } from "react"
+import { trackClick } from "../lib/analytics"
 
-export default function UserButton({ url, icon, settings, buttonId }) {
+export default function UserButton({ url, icon, settings, buttonId, userId }) {
 	const [isHovered, setIsHovered] = useState(false)
+
+	const handleClick = async () => {
+		await trackClick(buttonId, "button", userId)
+	}
 
 	return (
 		<li className="flex flex-row items-center justify-center">
-			<a href={url} target="_blank" rel="noopener noreferrer">
+			<a href={url} target="_blank" rel="noopener noreferrer" onClick={handleClick}>
 				<div
 					className="flex h-10 w-10 items-center justify-center rounded-full"
 					style={{

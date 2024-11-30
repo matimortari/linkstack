@@ -1,5 +1,3 @@
-"use client"
-
 import UpdateHeaderForm from "@/src/components/forms/UpdateHeaderForm"
 import UpdateSlugForm from "@/src/components/forms/UpdateSlugForm"
 import ButtonList from "@/src/components/lists/ButtonList"
@@ -21,7 +19,7 @@ export default function Dashboard() {
 				<header className="mb-2 flex flex-col">
 					<h1 className="title">Dashboard</h1>
 					<span className="title-label">
-						Welcome back, <span className="font-bold text-primary">{session.user.name}</span>!
+						Welcome back, <span className="font-bold text-primary">{session?.user?.name}</span>!
 					</span>
 				</header>
 				<hr />

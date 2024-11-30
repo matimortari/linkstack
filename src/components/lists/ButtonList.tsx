@@ -1,3 +1,5 @@
+"use client"
+
 import { useDeleteButton } from "@/src/hooks/useMutations"
 import { getButtons } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
