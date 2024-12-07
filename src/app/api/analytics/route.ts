@@ -1,6 +1,24 @@
+import { getSessionOrUnauthorized } from "@/src/lib/api"
 import { db } from "@/src/lib/db"
 import { NextRequest, NextResponse } from "next/server"
 
+// GET method for getting user analytics data
+export async function GET(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	try {
+		const analyticsData = await db.userStats.findMany({
+			where: { userId: session.user.id }
+		})
+
+		return NextResponse.json(analyticsData, { status: 200 })
+	} catch (error) {
+		return NextResponse.json({ error: "Failed to fetch analytics data" }, { status: 500 })
+	}
+}
+
+// POST method for tracking user clicks
 export async function POST(req: NextRequest) {
 	try {
 		const { id, type, userId } = await req.json()

@@ -1,5 +1,14 @@
 import { db } from "./db"
 
+// Get user analytics data
+export const getAnalytics = async () => {
+	const response = await fetch("/api/analytics", { method: "GET" })
+	if (!response.ok) {
+		throw new Error("Failed to fetch analytics data")
+	}
+	return response.json()
+}
+
 // Track a page visit based on the user's slug
 export async function trackPageVisit(slug: string) {
 	const user = await db.user.findUnique({
