@@ -50,6 +50,15 @@ export const resetDescription = ({
 	setLocalDescription("")
 }
 
+export async function deleteUserAccount() {
+	const response = await fetch("/api/user", { method: "DELETE" })
+
+	if (!response.ok) {
+		const errorData = await response.json()
+		throw new Error(errorData.message || "Failed to delete user account.")
+	}
+}
+
 // Get user settings
 export const getUserSettings = async () => {
 	const res = await fetch("/api/preferences", { method: "GET" })

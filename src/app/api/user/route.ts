@@ -39,4 +39,11 @@ export async function PUT(req: NextRequest) {
 }
 
 // DELETE method for deleting user account
-// export async function DELETE(req: NextRequest) {}
+export async function DELETE(req: NextRequest) {
+	const { error, session, response } = await getSessionOrUnauthorized()
+	if (error) return response
+
+	await db.user.delete({ where: { id: session.user.id } })
+
+	return NextResponse.json({ message: "User deleted successfully" }, { status: 200 })
+}

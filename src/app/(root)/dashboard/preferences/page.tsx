@@ -5,9 +5,29 @@ import SupportBannerForm from "@/src/components/forms/SupportBannerForm"
 import Navbar from "@/src/components/Navbar"
 import Preview from "@/src/components/Preview"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
+import { deleteUserAccount } from "@/src/lib/actions"
+import { Icon } from "@iconify/react"
 
 export default function Preferences() {
 	useAuthRedirect()
+
+	const handleDeleteAccount = async () => {
+		const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.")
+
+		if (confirmation) {
+			try {
+				await deleteUserAccount()
+				window.location.href = "/login"
+			} catch (error) {
+				console.error("Error deleting account:", error)
+				if (error instanceof Error) {
+					alert(error.message)
+				} else {
+					alert("An unknown error occurred")
+				}
+			}
+		}
+	}
 
 	return (
 		<div className="flex min-h-screen md:flex-row">
@@ -31,6 +51,18 @@ export default function Preferences() {
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Support Banner</h2>
 						<SupportBannerForm />
+					</div>
+					<hr />
+
+					<div className="my-4 flex flex-col">
+						<h2 className="subtitle">Delete Account</h2>
+						<p className="text-sm font-medium text-destructive">This action is irreversible. All data will be lost.</p>
+						<div>
+							<button onClick={handleDeleteAccount} className="btn mt-2 bg-destructive text-destructive-foreground">
+								<Icon icon="material-symbols:person-remove-outline" className="icon text-xl" />
+								Delete Account
+							</button>
+						</div>
 					</div>
 					<hr />
 				</div>
