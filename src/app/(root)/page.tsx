@@ -50,6 +50,56 @@ export default function Home() {
 								Get Started!
 							</Link>
 						</form>
+
+						<section className="grid grid-cols-1 gap-2 md:grid-cols-2">
+							<div className="content-container flex items-start gap-2">
+								<span className="icon rounded-full bg-muted p-2">
+									<Icon icon="ri:paint-brush-fill" />
+								</span>
+								<div>
+									<p className="font-bold">Fully Customizable</p>
+									<span className="text-sm text-muted-foreground">
+										Customize the colors, change the sizes or add shadows for your links.
+									</span>
+								</div>
+							</div>
+
+							<div className="content-container flex items-start gap-2">
+								<span className="icon rounded-full bg-muted p-2">
+									<Icon icon="ri:infinity-fill" />
+								</span>
+								<div>
+									<p className="font-bold">Unlimited Links</p>
+									<span className="text-sm text-muted-foreground">
+										Add as many links or social buttons as you want to your page.
+									</span>
+								</div>
+							</div>
+
+							<div className="content-container flex items-start gap-2">
+								<span className="icon rounded-full bg-muted p-2">
+									<Icon icon="ri:line-chart-fill" />
+								</span>
+								<div>
+									<p className="font-bold">Detailed Analytics</p>
+									<span className="text-sm text-muted-foreground">
+										Track your page views, link clicks, and more with detailed analytics.
+									</span>
+								</div>
+							</div>
+
+							<div className="content-container flex items-start gap-2">
+								<span className="icon rounded-full bg-muted p-2">
+									<Icon icon="ri:price-tag-3-fill" />
+								</span>
+								<div>
+									<p className="font-bold">Free to Use!</p>
+									<span className="text-sm text-muted-foreground">
+										LinkStack is completely free to use, with no hidden fees or charges.
+									</span>
+								</div>
+							</div>
+						</section>
 					</div>
 				</section>
 
