@@ -1,4 +1,5 @@
 import { db } from "./db"
+import { formatDate } from "./utils"
 
 // Get user analytics data
 export const getAnalytics = async () => {
@@ -6,7 +7,19 @@ export const getAnalytics = async () => {
 	if (!response.ok) {
 		throw new Error("Failed to fetch analytics data")
 	}
-	return response.json()
+
+	const data = await response.json()
+
+	// Sort data by the 'date' field
+	const sortedData = data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+
+	// Format the date in each data entry
+	const formattedData = sortedData.map((entry) => ({
+		...entry,
+		date: formatDate(entry.date) // Apply formatDate to the date field
+	}))
+
+	return formattedData
 }
 
 // Track a page visit based on the user's slug

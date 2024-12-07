@@ -15,8 +15,8 @@ export function generateSlug(base: string = "", isInitial: boolean = false, leng
 export function formatDate(dateString) {
 	const date = new Date(dateString)
 	const formattedDate = date.toLocaleDateString("en-US", {
-		year: "numeric",
-		month: "long",
+		year: "2-digit",
+		month: "short",
 		day: "numeric"
 	})
 

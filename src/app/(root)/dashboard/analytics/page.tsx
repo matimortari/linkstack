@@ -5,7 +5,7 @@ import Preview from "@/src/components/Preview"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
 import { getAnalytics } from "@/src/lib/analytics"
 import { useQuery } from "@tanstack/react-query"
-import { CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
+import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 export default function Analytics() {
 	useAuthRedirect()
@@ -27,21 +27,18 @@ export default function Analytics() {
 				{isPending ? (
 					<p className="py-2 text-sm text-muted-foreground">Loading analytics...</p>
 				) : isError ? (
-					<p className="py-2 text-sm text-destructive">
-						Error: {error instanceof Error ? error.message : "Unknown error"}
-					</p>
+					<p className="py-2 text-sm text-destructive">Error: {error.message || "Failed to load analytics data"}</p>
 				) : (
 					<div className="flex flex-col">
 						<div className="my-4 flex flex-col">
 							<h2 className="subtitle">Profile Views</h2>
-							<ResponsiveContainer width="100%" height={300}>
+							<ResponsiveContainer width="100%" height={200}>
 								<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
 									<CartesianGrid strokeDasharray="3 3" />
-									<XAxis dataKey="date" />
+									<XAxis dataKey="date" className="text-xs" />
 									<YAxis />
 									<Tooltip />
-									<Legend />
-									<Line type="monotone" dataKey="views" stroke="#8884d8" activeDot={{ r: 8 }} />
+									<Line type="monotone" dataKey="views" stroke="#3d6a85" activeDot={{ r: 8 }} />
 								</LineChart>
 							</ResponsiveContainer>
 						</div>
@@ -49,14 +46,13 @@ export default function Analytics() {
 
 						<div className="my-4 flex flex-col">
 							<h2 className="subtitle">Link Clicks</h2>
-							<ResponsiveContainer width="100%" height={300}>
+							<ResponsiveContainer width="100%" height={200}>
 								<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
 									<CartesianGrid strokeDasharray="3 3" />
-									<XAxis dataKey="date" />
+									<XAxis dataKey="date" className="text-xs" />
 									<YAxis />
 									<Tooltip />
-									<Legend />
-									<Line type="monotone" dataKey="linkClicks" stroke="#82ca9d" activeDot={{ r: 8 }} />
+									<Line type="monotone" dataKey="linkClicks" stroke="#458a7c" activeDot={{ r: 8 }} />
 								</LineChart>
 							</ResponsiveContainer>
 						</div>
@@ -64,14 +60,13 @@ export default function Analytics() {
 
 						<div className="my-4 flex flex-col">
 							<h2 className="subtitle">Button Clicks</h2>
-							<ResponsiveContainer width="100%" height={300}>
+							<ResponsiveContainer width="100%" height={200}>
 								<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
 									<CartesianGrid strokeDasharray="3 3" />
-									<XAxis dataKey="date" />
+									<XAxis dataKey="date" className="text-xs" />
 									<YAxis />
 									<Tooltip />
-									<Legend />
-									<Line type="monotone" dataKey="buttonClicks" stroke="#ffc658" activeDot={{ r: 8 }} />
+									<Line type="monotone" dataKey="buttonClicks" stroke="#458a7c" activeDot={{ r: 8 }} />
 								</LineChart>
 							</ResponsiveContainer>
 						</div>
