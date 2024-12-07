@@ -1,46 +1,36 @@
+"use client"
+
 import { defaultSettings } from "@/src/data/userSettings"
-import { getUserSettings, updateUserBanner } from "@/src/lib/actions"
+import { useUpdateUserBanner } from "@/src/hooks/useMutations"
+import { getUserSettings } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
+import { useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 
 export default function SupportBannerForm() {
-	const [settings, setSettings] = useState(defaultSettings)
 	const [selectedOption, setSelectedOption] = useState("NONE")
-	const [success, setSuccess] = useState("")
-	const [error, setError] = useState("")
+	const { data: settings = defaultSettings, isPending } = useQuery({
+		queryKey: ["userSettings"],
+		queryFn: getUserSettings
+	})
+	const { mutate: updateBanner, isPending: isUpdating, isSuccess, isError } = useUpdateUserBanner()
 
 	useEffect(() => {
-		const loadUserSettings = async () => {
-			try {
-				const data = await getUserSettings()
-				setSettings(data)
-				setSelectedOption(data.supportBanner || "NONE")
-			} catch (error) {
-				console.error("Error loading user settings:", error)
-				setError("Could not load user settings.")
-			}
+		if (settings) {
+			setSelectedOption(settings.supportBanner || "NONE")
 		}
-
-		loadUserSettings()
-	}, [])
+	}, [settings])
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		setError("")
-		setSuccess("")
-
-		try {
-			await updateUserBanner(selectedOption)
-			setSuccess("Support banner has been updated!")
-		} catch (error) {
-			console.error("Error saving support banner:", error)
-			setError("Failed to update support banner.")
-		}
+		updateBanner(selectedOption)
 	}
+
+	if (isPending) return <p className="description-label text-muted-foreground">Loading support banner settings...</p>
 
 	return (
 		<>
-			<form className="my-2 flex max-w-md flex-col gap-2">
+			<form className="my-2 flex max-w-md flex-col gap-2" onSubmit={handleSubmit}>
 				<select
 					value={selectedOption}
 					onChange={(event) => setSelectedOption(event.target.value)}
@@ -64,17 +54,15 @@ export default function SupportBannerForm() {
 				</select>
 
 				<div>
-					<button onClick={handleSubmit} className="btn bg-primary text-primary-foreground">
+					<button type="submit" disabled={isUpdating} className="btn bg-primary text-primary-foreground">
 						<Icon icon="material-symbols:volunteer-activism-outline" className="icon text-xl" />
-						Update Banner
+						{isUpdating ? "Updating..." : "Update Banner"}
 					</button>
 				</div>
 			</form>
 
-			<>
-				{success && <p className="mt-2 font-bold text-primary">{success}</p>}
-				{error && <p className="mt-2 font-bold text-destructive">{error}</p>}
-			</>
+			{isSuccess && <p className="description-label text-primary">Support banner updated successfully!</p>}
+			{isError && <p className="description-label text-destructive">Failed to update support banner.</p>}
 		</>
 	)
 }

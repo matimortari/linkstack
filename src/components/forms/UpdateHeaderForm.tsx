@@ -49,8 +49,8 @@ export default function UpdateHeaderForm() {
 				</div>
 			</form>
 
-			{isSuccess && <p className="mt-2 font-bold text-primary">Description updated successfully!</p>}
-			{error && <p className="mt-2 font-bold text-destructive">{(error as Error).message}</p>}
+			{isSuccess && <p className="description-label text-primary">Description updated successfully!</p>}
+			{error && <p className="description-label text-destructive">Failed to update description.</p>}
 		</>
 	)
 }

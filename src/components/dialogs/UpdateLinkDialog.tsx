@@ -6,7 +6,6 @@ export default function UpdateLinkDialog({ onClose, linkData }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
-
 	const { mutate: updateExistingLink, isPending } = useUpdateLink({ onClose })
 
 	useEffect(() => {

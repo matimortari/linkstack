@@ -13,7 +13,7 @@ export default function ButtonList() {
 	const { data: userButtons, isPending } = useQuery({ queryKey: ["buttons"], queryFn: getButtons })
 	const { mutate: deleteButtonMutation } = useDeleteButton()
 
-	if (isPending) return <p className="py-2 text-sm text-muted-foreground">Loading Social Buttons...</p>
+	if (isPending) return <p className="description-label text-muted-foreground">Loading social buttons...</p>
 
 	return (
 		<>

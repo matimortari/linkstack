@@ -15,7 +15,7 @@ import { CheckboxInput, ColorInput, RadioOptions } from "./Inputs"
 
 export default function AppearanceForm() {
 	const [settings, setSettings] = useState(defaultSettings)
-	const { data: userSettings, isPending, isError } = useQuery({ queryKey: ["settings"], queryFn: getUserSettings })
+	const { data: userSettings, isPending } = useQuery({ queryKey: ["settings"], queryFn: getUserSettings })
 	const { mutate: resetSettingsMutation, isSuccess: resetSuccess, isError: resetError } = useResetSettings()
 	const { mutate: updateSettingsMutation, isSuccess: updateSuccess, isError: updateError } = useUpdateSettings()
 
@@ -53,8 +53,7 @@ export default function AppearanceForm() {
 		updateSettingsMutation(settings)
 	}
 
-	if (isPending) return <p className="py-2 text-sm text-muted-foreground">Loading Settings...</p>
-	if (isError) return <p className="py-2 text-sm text-muted-foreground">Failed to load settings.</p>
+	if (isPending) return <p className="description-label text-muted-foreground">Loading appearance settings...</p>
 
 	return (
 		<>
@@ -196,11 +195,11 @@ export default function AppearanceForm() {
 				</div>
 			</form>
 
-			{resetSuccess && <p className="mt-2 font-bold text-accent">Settings reset to default.</p>}
-			{resetError && <p className="mt-2 font-bold text-destructive">Failed to reset settings.</p>}
+			{resetSuccess && <p className="description-label text-primary">Settings reset to default.</p>}
+			{resetError && <p className="description-label text-destructive">Failed to reset settings.</p>}
 
-			{updateSuccess && <p className="mt-2 font-bold text-accent">Settings updated successfully!</p>}
-			{updateError && <p className="mt-2 font-bold text-destructive">Failed to update settings.</p>}
+			{updateSuccess && <p className="description-label text-primary">Settings updated successfully!</p>}
+			{updateError && <p className="description-label text-destructive">Failed to update settings.</p>}
 		</>
 	)
 }

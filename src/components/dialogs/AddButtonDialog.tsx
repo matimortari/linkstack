@@ -8,9 +8,7 @@ export default function AddButtonDialog({ onClose, addButton }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
 	const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null)
 	const [url, setUrl] = useState("")
-
 	const icon = selectedPlatform ? SOCIAL_ICONS[selectedPlatform] : "" // Get icon based on selected platform
-
 	const { mutate: addNewButton, isPending } = useAddButton({ onClose })
 
 	const handleSubmit = async (e: React.FormEvent) => {

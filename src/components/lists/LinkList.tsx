@@ -15,7 +15,7 @@ export default function LinkList() {
 	const { data: userLinks, isPending } = useQuery({ queryKey: ["links"], queryFn: getLinks })
 	const { mutate: deleteLinkMutation } = useDeleteLink()
 
-	if (isPending) return <p className="py-2 text-sm text-muted-foreground">Loading Links...</p>
+	if (isPending) return <p className="description-label text-muted-foreground">Loading links...</p>
 
 	return (
 		<>

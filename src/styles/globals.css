@@ -100,7 +100,9 @@
 	font-weight: 600;
 }
 
-.subtitle-label {
+.description-label {
+	margin-top: 0.25rem;
+	margin-bottom: 0.25rem;
 	font-size: 0.8rem;
 	line-height: 1.25rem;
 	font-weight: 600;
@@ -136,7 +138,7 @@
 	box-shadow: 0 0 0 2px var(--accent);
 }
 
-.support-banner {
+.banner-container {
 	color: #ffffff;
 }
 

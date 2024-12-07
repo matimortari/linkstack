@@ -7,6 +7,7 @@ import {
 	updateDescription,
 	updateLink,
 	updateSlug,
+	updateUserBanner,
 	updateUserSettings
 } from "@/src/lib/actions"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
@@ -43,7 +44,7 @@ export function useUpdateDescription() {
 	})
 }
 
-// Hook for resetting user settings
+// Hook to reset user settings
 export function useResetSettings() {
 	const queryClient = useQueryClient()
 
@@ -60,7 +61,7 @@ export function useResetSettings() {
 	})
 }
 
-// Hook for updating user settings
+// Hook to update user settings
 export function useUpdateSettings() {
 	const queryClient = useQueryClient()
 
@@ -72,6 +73,22 @@ export function useUpdateSettings() {
 		},
 		onError: (error) => {
 			console.error("Error updating settings:", error)
+		}
+	})
+}
+
+// Hook to update user support banner
+export function useUpdateUserBanner() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ["updateUserBanner"],
+		mutationFn: updateUserBanner,
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ["userSettings"] })
+		},
+		onError: (error) => {
+			console.error("Error updating support banner:", error)
 		}
 	})
 }

@@ -29,7 +29,7 @@ export default function Dashboard() {
 				<div className="flex flex-col">
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Update Slug</h2>
-						<p className="subtitle-label text-muted-foreground">Customize your profile URL.</p>
+						<p className="description-label text-muted-foreground">Customize your profile URL.</p>
 
 						<UpdateSlugForm />
 					</div>
@@ -37,21 +37,21 @@ export default function Dashboard() {
 
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Update Header</h2>
-						<p className="subtitle-label text-muted-foreground">Update the description for your profile header.</p>
+						<p className="description-label text-muted-foreground">Update the description for your profile header.</p>
 						<UpdateHeaderForm />
 					</div>
 					<hr />
 
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">My Links</h2>
-						<p className="subtitle-label text-muted-foreground">Manage your links.</p>
+						<p className="description-label text-muted-foreground">Manage your links.</p>
 						<LinkList />
 					</div>
 					<hr />
 
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">My Social Buttons</h2>
-						<p className="subtitle-label text-muted-foreground">Manage your social buttons.</p>
+						<p className="description-label text-muted-foreground">Manage your social buttons.</p>
 						<ButtonList />
 					</div>
 					<hr />

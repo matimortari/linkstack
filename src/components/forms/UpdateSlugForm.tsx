@@ -54,7 +54,7 @@ export default function UpdateSlugForm() {
 			</form>
 
 			{isSuccess && <p className="mt-2 font-bold text-primary">Slug updated successfully!</p>}
-			{error && <p className="mt-2 font-bold text-destructive">{(error as Error).message}</p>}
+			{error && <p className="mt-2 font-bold text-destructive">Failed to update slug.</p>}
 		</>
 	)
 }

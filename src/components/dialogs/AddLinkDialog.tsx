@@ -6,7 +6,6 @@ export default function AddLinkDialog({ onClose }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
-
 	const { mutate: addNewLink, isPending } = useAddLink({ onClose })
 
 	const handleSubmit = (e: React.FormEvent) => {
