@@ -1,5 +1,6 @@
 "use client"
 
+import { CardCarousel } from "@/src/components/carousel/CardCarousel"
 import { Icon } from "@iconify/react"
 import { useSession } from "next-auth/react"
 import { Bowlby_One } from "next/font/google"
@@ -54,7 +55,7 @@ export default function Home() {
 
 				<section className="z-50 flex w-full max-w-xl flex-col items-center justify-center md:w-1/2">
 					<div className="flex flex-col">
-						<button className="btn rounded-md px-4 py-2">Preview</button>
+						<CardCarousel />
 					</div>
 				</section>
 			</main>

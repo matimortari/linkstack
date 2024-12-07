@@ -25,7 +25,7 @@ export default function UserLink({ url, title, settings, linkId, userId }) {
 					onMouseEnter={() => setIsHovered(true)}
 					onMouseLeave={() => setIsHovered(false)}
 				>
-					<p className="overflow-hidden text-ellipsis font-medium" style={{ color: settings.linkTextColor }}>
+					<p className="truncate font-medium" style={{ color: settings.linkTextColor }}>
 						{title}
 					</p>
 				</div>
