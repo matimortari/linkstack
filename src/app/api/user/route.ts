@@ -23,11 +23,9 @@ export async function PUT(req: NextRequest) {
 	const { newSlug, newDescription } = await req.json()
 	const updateData: { slug?: string; description?: string | null } = {
 		...(newSlug && typeof newSlug === "string" && { slug: newSlug }),
-		// Allow empty string for description by checking if it's defined (not undefined)
 		...(newDescription !== undefined && typeof newDescription === "string" && { description: newDescription })
 	}
 
-	// Check if `updateData` is empty after conditionally adding properties
 	if (!Object.keys(updateData).length) {
 		return NextResponse.json({ error: "No valid data to update" }, { status: 400 })
 	}

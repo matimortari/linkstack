@@ -24,7 +24,6 @@ export default function Preferences() {
 
 				<div className="flex flex-col">
 					<div className="my-4 flex flex-col">
-						<h2 className="subtitle">Appearance Settings</h2>
 						<AppearanceForm />
 					</div>
 					<hr />

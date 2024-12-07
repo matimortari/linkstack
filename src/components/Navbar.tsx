@@ -13,13 +13,15 @@ export default function Navbar() {
 
 	return (
 		<div className="flex flex-col justify-center gap-4 font-semibold">
-			<div className="content-container flex flex-row gap-2">
-				<Image src="/logo.png" alt="Logo" width={25} height={25} className="icon" />
-				<span className="text-lg font-bold">LinkStack</span>
+			<div className="content-container">
+				<Link href="/" className="flex flex-row items-center justify-start gap-2">
+					<Image src="/logo.png" alt="Logo" width={30} height={30} className="icon" />
+					<span className="text-lg font-bold">LinkStack</span>
+				</Link>
 			</div>
 
 			<Link href={`/${slug}`} className="flex flex-row items-center justify-start gap-2">
-				{image && <Image src={image} alt={slug ?? "avatar"} width={35} height={35} className="rounded-full" />}
+				{image && <Image src={image} alt={slug ?? "avatar"} width={40} height={40} className="rounded-full" />}
 				<p className="truncate text-xs text-muted-foreground">@{slug}</p>
 			</Link>
 

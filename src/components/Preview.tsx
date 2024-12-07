@@ -8,12 +8,10 @@ import UserLink from "./UserLink"
 export default function Preview() {
 	const { data: session } = useSession()
 
-	// Loading state
 	if (!session) {
 		return <p className="text-sm text-muted-foreground">Loading Preview...</p>
 	}
 
-	// Destructure required properties
 	const { description, links, image, buttons, settings, slug, id: userId } = session.user || {}
 
 	return (

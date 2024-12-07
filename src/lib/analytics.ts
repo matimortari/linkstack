@@ -16,7 +16,7 @@ export const getAnalytics = async () => {
 	// Format the date in each data entry
 	const formattedData = sortedData.map((entry) => ({
 		...entry,
-		date: formatDate(entry.date) // Apply formatDate to the date field
+		date: formatDate(entry.date)
 	}))
 
 	return formattedData

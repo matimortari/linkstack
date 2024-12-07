@@ -23,12 +23,11 @@ export async function POST(req: NextRequest) {
 	try {
 		const { id, type, userId } = await req.json()
 
-		// Format today's date to match the format in the UserStats table
-		const today = new Date().toISOString().split("T")[0] // Format: 'YYYY-MM-DD'
+		// Format today's date to match the format in the UserStats table (YYYY-MM-DD)
+		const today = new Date().toISOString().split("T")[0]
 
 		// Create a new record based on type (link or button)
 		if (type === "link") {
-			// Create a new link click record
 			await db.linkClick.create({
 				data: {
 					userLinkId: parseInt(id),
@@ -37,13 +36,11 @@ export async function POST(req: NextRequest) {
 				}
 			})
 
-			// Update the UserLink table to increment the total click count
 			await db.userLink.update({
 				where: { id: parseInt(id) },
 				data: { clicks: { increment: 1 } }
 			})
 		} else if (type === "button") {
-			// Create a new button click record
 			await db.buttonClick.create({
 				data: {
 					userButtonId: parseInt(id),
@@ -52,51 +49,48 @@ export async function POST(req: NextRequest) {
 				}
 			})
 
-			// Update the UserButton table to increment the total click count
 			await db.userButton.update({
 				where: { id: parseInt(id) },
 				data: { clicks: { increment: 1 } }
 			})
 		}
 
-		// Check if stats for this user and today already exist
+		// Check if stats for the user and today already exist
 		const userStats = await db.userStats.findFirst({
 			where: {
 				userId,
-				date: new Date(today) // Compare with today's date
+				date: new Date(today)
 			}
 		})
 
+		// If stats exist, update the appropriate click count. If not, create a new record
 		if (userStats) {
-			// If stats exist, update the appropriate click count
 			if (type === "link") {
 				await db.userStats.update({
 					where: {
-						id: userStats.id // Use the existing record ID to update it
+						id: userStats.id
 					},
 					data: {
-						linkClicks: { increment: 1 } // Increment the linkClicks by 1
+						linkClicks: { increment: 1 }
 					}
 				})
 			} else if (type === "button") {
 				await db.userStats.update({
 					where: {
-						id: userStats.id // Use the existing record ID to update it
+						id: userStats.id
 					},
 					data: {
-						buttonClicks: { increment: 1 } // Increment the buttonClicks by 1
+						buttonClicks: { increment: 1 }
 					}
 				})
 			}
 		} else {
-			// If no stats exist, create a new record
 			const newStatsData = {
 				userId,
-				date: new Date(today) // Set today's date
+				date: new Date(today)
 			}
 
 			if (type === "link") {
-				// For link click, initialize the linkClicks to 1
 				await db.userStats.create({
 					data: {
 						...newStatsData,
@@ -104,7 +98,6 @@ export async function POST(req: NextRequest) {
 					}
 				})
 			} else if (type === "button") {
-				// For button click, initialize the buttonClicks to 1
 				await db.userStats.create({
 					data: {
 						...newStatsData,
