@@ -32,6 +32,8 @@ export default function Analytics() {
 					<div className="flex flex-col">
 						<div className="my-4 flex flex-col">
 							<h2 className="subtitle">Profile Views</h2>
+							<p className="subtitle-label text-muted-foreground">Total views of your profile page over time.</p>
+
 							<ResponsiveContainer width="100%" height={200}>
 								<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
 									<CartesianGrid strokeDasharray="3 3" />
@@ -46,6 +48,7 @@ export default function Analytics() {
 
 						<div className="my-4 flex flex-col">
 							<h2 className="subtitle">Link Clicks</h2>
+							<p className="subtitle-label text-muted-foreground">Total clicks on your links over time.</p>
 							<ResponsiveContainer width="100%" height={200}>
 								<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
 									<CartesianGrid strokeDasharray="3 3" />
@@ -60,6 +63,7 @@ export default function Analytics() {
 
 						<div className="my-4 flex flex-col">
 							<h2 className="subtitle">Button Clicks</h2>
+							<p className="subtitle-label text-muted-foreground">Total clicks on your social buttons over time.</p>
 							<ResponsiveContainer width="100%" height={200}>
 								<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
 									<CartesianGrid strokeDasharray="3 3" />

@@ -31,13 +31,13 @@ export default function UpdateSlugForm() {
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="form-container my-2 max-w-xl">
-				<span className="text-muted-foreground">linkstack-live.vercel.app/</span>
+				<span className="text-sm text-muted-foreground">linkstack-live.vercel.app/</span>
 				<input
 					type="text"
 					value={slug}
 					onChange={(e) => setSlug(e.target.value)}
 					placeholder={currentSlug}
-					className="input flex-1 truncate text-muted-foreground"
+					className="input flex-1 truncate text-sm text-muted-foreground"
 					required
 				/>
 

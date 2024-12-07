@@ -13,7 +13,7 @@ export default function UpdateHeaderForm() {
 
 	useEffect(() => {
 		if (session) {
-			setCurrentDescription(session.user.description || "Enter new header description")
+			setCurrentDescription(session.user.description || "Enter new description")
 		}
 	}, [session])
 
@@ -34,7 +34,7 @@ export default function UpdateHeaderForm() {
 					value={localDescription}
 					onChange={(e) => setLocalDescription(e.target.value)}
 					placeholder={currentDescription}
-					className="input flex-1 truncate text-muted-foreground"
+					className="input flex-1 truncate text-sm text-muted-foreground"
 				/>
 
 				<div className="flex flex-row gap-1">

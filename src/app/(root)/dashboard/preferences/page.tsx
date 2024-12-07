@@ -44,19 +44,22 @@ export default function Preferences() {
 
 				<div className="flex flex-col">
 					<div className="my-4 flex flex-col">
+						<h2 className="subtitle">Appearance</h2>
+						<p className="subtitle-label text-muted-foreground">Customize your profile appearance.</p>
 						<AppearanceForm />
 					</div>
 					<hr />
 
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Support Banner</h2>
+						<p className="subtitle-label text-muted-foreground">Show your support for important causes.</p>
 						<SupportBannerForm />
 					</div>
 					<hr />
 
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Delete Account</h2>
-						<p className="text-sm font-medium text-destructive">This action is irreversible. All data will be lost.</p>
+						<p className="subtitle-label text-destructive">This action is irreversible. All data will be lost.</p>
 						<div>
 							<button onClick={handleDeleteAccount} className="btn mt-2 bg-destructive text-destructive-foreground">
 								<Icon icon="material-symbols:person-remove-outline" className="icon text-xl" />

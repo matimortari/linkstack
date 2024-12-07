@@ -60,7 +60,7 @@ export default function AppearanceForm() {
 		<>
 			<form onSubmit={handleSubmit} className="flex flex-wrap">
 				<div className="flex w-full flex-col md:w-1/2">
-					<h1 className="subtitle mb-2">General Settings</h1>
+					<h1 className="subtitle my-2">General Settings</h1>
 					<hr className="max-w-xs" />
 					<ColorInput
 						id="backgroundColor"
@@ -98,7 +98,7 @@ export default function AppearanceForm() {
 				</div>
 
 				<div className="flex w-full flex-col md:w-1/2">
-					<h1 className="subtitle mb-2">Social Buttons</h1>
+					<h1 className="subtitle my-2">Social Buttons</h1>
 					<hr className="max-w-xs" />
 					<ColorInput
 						id="buttonBackgroundColor"
@@ -133,7 +133,7 @@ export default function AppearanceForm() {
 						onChange={handleColorChange("buttonShadowColor")}
 					/>
 					<hr className="max-w-xs" />
-					<h1 className="subtitle mb-2">Link Buttons</h1>
+					<h1 className="subtitle my-2">Link Buttons</h1>
 					<hr className="max-w-xs" />
 					<ColorInput
 						id="linkBackgroundColor"
