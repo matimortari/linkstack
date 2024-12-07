@@ -20,7 +20,7 @@ export default function Dashboard() {
 			<main className="content-container md:w-7/12">
 				<header className="mb-2 flex flex-col">
 					<h1 className="title">Dashboard</h1>
-					<span className="title-label">
+					<span className="description-label">
 						Welcome back, <span className="font-bold text-primary">{session?.user?.name}</span>!
 					</span>
 				</header>

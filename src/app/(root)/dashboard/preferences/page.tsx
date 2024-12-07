@@ -37,8 +37,8 @@ export default function Preferences() {
 
 			<main className="content-container md:w-7/12">
 				<header className="mb-2 flex flex-col">
-					<h1 className="title">Dashboard</h1>
-					<span className="title-label">Update your account preferences.</span>
+					<h1 className="title">Preferences</h1>
+					<span className="description-label">Update your account preferences.</span>
 				</header>
 				<hr />
 

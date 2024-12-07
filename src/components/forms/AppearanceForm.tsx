@@ -53,7 +53,7 @@ export default function AppearanceForm() {
 		updateSettingsMutation(settings)
 	}
 
-	if (isPending) return <p className="description-label text-muted-foreground">Loading appearance settings...</p>
+	if (isPending) return <p className="description-label text-muted-foreground">Loading appearance preferences...</p>
 
 	return (
 		<>

@@ -31,8 +31,8 @@ export default function ThemeSwitch() {
 	}
 
 	return (
-		<div className="flex items-center">
-			<span className="mx-2 text-xs">{isDarkMode ? "Theme: Dark" : "Theme: Light"}</span>
+		<div className="flex items-center gap-2">
+			<span className="description-label">Theme: {isDarkMode ? "Dark" : "Light"}</span>
 			<label htmlFor="theme-switch" className="relative inline-block h-4 w-8">
 				<input
 					id="theme-switch"

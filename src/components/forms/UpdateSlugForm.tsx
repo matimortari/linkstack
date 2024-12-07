@@ -31,7 +31,7 @@ export default function UpdateSlugForm() {
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="form-container my-2 max-w-xl">
-				<span className="text-sm text-muted-foreground">linkstack-live.vercel.app/</span>
+				<span className="text-sm font-semibold text-muted-foreground">linkstack-live.vercel.app/</span>
 				<input
 					type="text"
 					value={slug}

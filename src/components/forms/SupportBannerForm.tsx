@@ -26,7 +26,7 @@ export default function SupportBannerForm() {
 		updateBanner(selectedOption)
 	}
 
-	if (isPending) return <p className="description-label text-muted-foreground">Loading support banner settings...</p>
+	if (isPending) return <p className="description-label text-muted-foreground">Loading support banner options...</p>
 
 	return (
 		<>

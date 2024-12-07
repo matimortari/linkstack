@@ -20,8 +20,8 @@ export default function Analytics() {
 
 			<main className="content-container md:w-7/12">
 				<header className="mb-2 flex flex-col">
-					<h1 className="title">Dashboard</h1>
-					<span className="title-label">View your profile analytics.</span>
+					<h1 className="title">Analytics</h1>
+					<span className="description-label">View your profile analytics.</span>
 				</header>
 				<hr />
 
