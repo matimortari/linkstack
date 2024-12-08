@@ -1,16 +1,14 @@
 "use client"
 
+import AnalyticsGraphs from "@/src/components/lists/AnalyticsGraphs"
+import AnalyticsSummary from "@/src/components/lists/AnalyticsSummary"
+import ClicksByLink from "@/src/components/lists/ClicksByLink"
 import Navbar from "@/src/components/Navbar"
 import Preview from "@/src/components/Preview"
 import useAuthRedirect from "@/src/hooks/useAuthRedirect"
-import { getAnalytics } from "@/src/lib/analytics"
-import { useQuery } from "@tanstack/react-query"
-import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts"
 
 export default function Analytics() {
 	useAuthRedirect()
-
-	const { data: stats } = useQuery({ queryKey: ["analytics"], queryFn: getAnalytics })
 
 	return (
 		<div className="flex min-h-screen md:flex-row">
@@ -27,48 +25,19 @@ export default function Analytics() {
 
 				<div className="flex flex-col">
 					<div className="my-4 flex flex-col">
-						<h2 className="subtitle">Profile Views</h2>
-						<p className="description-label text-muted-foreground">Total views of your profile page over time.</p>
-
-						<ResponsiveContainer width="100%" height={200}>
-							<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
-								<CartesianGrid strokeDasharray="3 3" />
-								<XAxis dataKey="date" className="text-xs" />
-								<YAxis />
-								<Tooltip />
-								<Line type="monotone" dataKey="views" stroke="#3d6a85" activeDot={{ r: 8 }} />
-							</LineChart>
-						</ResponsiveContainer>
+						<h2 className="subtitle">Analytics Summary</h2>
+						<p className="description-label text-muted-foreground">Your key metrics.</p>
+						<AnalyticsSummary />
 					</div>
 					<hr />
 
-					<div className="my-4 flex flex-col">
-						<h2 className="subtitle">Link Clicks</h2>
-						<p className="description-label text-muted-foreground">Total clicks on your links over time.</p>
-						<ResponsiveContainer width="100%" height={200}>
-							<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
-								<CartesianGrid strokeDasharray="3 3" />
-								<XAxis dataKey="date" className="text-xs" />
-								<YAxis />
-								<Tooltip />
-								<Line type="monotone" dataKey="linkClicks" stroke="#458a7c" activeDot={{ r: 8 }} />
-							</LineChart>
-						</ResponsiveContainer>
-					</div>
+					<AnalyticsGraphs />
 					<hr />
 
 					<div className="my-4 flex flex-col">
-						<h2 className="subtitle">Button Clicks</h2>
-						<p className="description-label text-muted-foreground">Total clicks on your social buttons over time.</p>
-						<ResponsiveContainer width="100%" height={200}>
-							<LineChart data={stats} margin={{ top: 20, right: 30, left: 20, bottom: 10 }}>
-								<CartesianGrid strokeDasharray="3 3" />
-								<XAxis dataKey="date" className="text-xs" />
-								<YAxis />
-								<Tooltip />
-								<Line type="monotone" dataKey="buttonClicks" stroke="#458a7c" activeDot={{ r: 8 }} />
-							</LineChart>
-						</ResponsiveContainer>
+						<h2 className="subtitle">Clicks by Link</h2>
+						<p className="description-label text-muted-foreground">Your most clicked links & social buttons.</p>
+						<ClicksByLink />
 					</div>
 					<hr />
 				</div>

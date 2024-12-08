@@ -16,7 +16,7 @@ export default function Preview() {
 
 	return (
 		<div
-			className="content-container mx-auto my-2 w-full overflow-hidden"
+			className="content-container mx-auto my-2 min-h-96 w-full overflow-hidden"
 			style={{ backgroundColor: settings?.backgroundColor }}
 		>
 			<div className="flex flex-col items-center justify-center gap-2 py-5 text-center">

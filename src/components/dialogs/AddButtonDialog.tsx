@@ -38,7 +38,7 @@ export default function AddButtonDialog({ onClose, addButton }) {
 								<div
 									key={platform}
 									onClick={() => setSelectedPlatform(platform)}
-									className={`flex cursor-pointer flex-col items-center justify-center rounded-lg px-1 py-2 ${selectedPlatform === platform ? "bg-primary" : "bg-muted"} hover:bg-primary`}
+									className={`flex cursor-pointer flex-col items-center justify-center rounded-lg border border-muted p-2 ${selectedPlatform === platform ? "bg-primary" : "bg-transparent"} hover:bg-primary`}
 								>
 									<Icon icon={icon} className="text-xl" />
 									<p className="mt-1 text-center text-xs">{platform.charAt(0).toUpperCase() + platform.slice(1)}</p>
