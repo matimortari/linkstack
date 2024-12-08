@@ -19,11 +19,15 @@ Free website for aggregating and managing your links & social media profiles! Ba
 
 - **Next.js** for routing & server-side rendering.
 - **NextAuth** for authentication with Google & GitHub.
-- **Prisma ORM** for database management.
+- **Prisma** for database management.
 - **React Query** for data fetching & state management.
 - **Recharts** for analytics data visualization.
 - **TypeScript**.
 - **Tailwind CSS**.
+
+## ✍️ Developer Note
+
+**LinkStack** is my first own full-stack project built from scratch, and it has been a rewarding journey. While tools like **Linktree** exist, I wanted to challenge myself by creating a similar platform from the ground up. Throughout the process, I aimed to deepen my understanding of concepts such as project structure and multiple layouts in Next.js, along with state management and data fetching (in which **React Query** proved to be a great tool for me). I also wanted to improve my responsive design skills with **Tailwind CSS**, and learn data visualization with my library of choice, **Recharts**.
 
 ## 📬 Contact
 
