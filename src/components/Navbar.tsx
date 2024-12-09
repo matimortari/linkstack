@@ -20,34 +20,38 @@ export default function Navbar() {
 				</Link>
 			</div>
 
-			<Link href={`/${slug}`} className="flex flex-row items-center justify-start gap-2">
-				{image && <Image src={image} alt={slug ?? "avatar"} width={40} height={40} className="rounded-full" />}
-				<p className="truncate text-xs text-muted-foreground">@{slug}</p>
-			</Link>
+			<div className="flex flex-row justify-between gap-2 md:flex-col">
+				<Link href={`/${slug}`} className="flex flex-row items-center justify-start gap-2">
+					{image && <Image src={image} alt={slug ?? "avatar"} width={40} height={40} className="rounded-full" />}
+					<p className="truncate text-xs text-muted-foreground">@{slug}</p>
+				</Link>
+				<ThemeSwitch />
+				<hr />
+			</div>
 
-			<ThemeSwitch />
-			<hr />
-
-			<div className="flex w-full flex-col justify-center gap-2 text-sm">
-				<Link href="/dashboard" className="btn">
+			<div className="flex w-full flex-row justify-center gap-1 text-sm md:flex-col md:gap-2">
+				<Link href="/dashboard" className="btn flex-col text-center md:flex-row">
 					<Icon icon="material-symbols:view-timeline-outline" className="icon text-xl" />
 					<p>My Links</p>
 				</Link>
 				<hr />
 
-				<Link href="/dashboard/preferences" className="btn">
+				<Link href="/dashboard/preferences" className="btn flex-col text-center md:flex-row">
 					<Icon icon="material-symbols:settings-applications-outline" className="icon text-xl" />
 					<p>Preferences</p>
 				</Link>
 				<hr />
 
-				<Link href="/dashboard/analytics" className="btn">
+				<Link href="/dashboard/analytics" className="btn flex-col text-center md:flex-row">
 					<Icon icon="material-symbols:chart-data-outline" className="icon text-xl" />
 					<p>Analytics</p>
 				</Link>
 				<hr />
 
-				<button onClick={async () => await signOut({ redirect: true, callbackUrl: "/" })} className="btn">
+				<button
+					onClick={async () => await signOut({ redirect: true, callbackUrl: "/" })}
+					className="btn flex-col text-center md:flex-row"
+				>
 					<Icon icon="material-symbols:logout" className="icon text-xl" />
 					<p>Sign Out</p>
 				</button>

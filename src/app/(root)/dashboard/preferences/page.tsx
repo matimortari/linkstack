@@ -20,17 +20,13 @@ export default function Preferences() {
 				window.location.href = "/login"
 			} catch (error) {
 				console.error("Error deleting account:", error)
-				if (error instanceof Error) {
-					alert(error.message)
-				} else {
-					alert("An unknown error occurred")
-				}
+				alert("An error occurred while deleting your account. Please try again.")
 			}
 		}
 	}
 
 	return (
-		<div className="flex min-h-screen md:flex-row">
+		<div className="flex min-h-screen flex-col md:flex-row">
 			<aside className="p-4 md:w-2/12">
 				<Navbar />
 			</aside>

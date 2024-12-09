@@ -11,7 +11,7 @@ export default function Analytics() {
 	useAuthRedirect()
 
 	return (
-		<div className="flex min-h-screen md:flex-row">
+		<div className="flex min-h-screen flex-col md:flex-row">
 			<aside className="p-4 md:w-2/12">
 				<Navbar />
 			</aside>
