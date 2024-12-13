@@ -31,7 +31,7 @@ export default function UpdateSlugForm() {
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="form-container my-2 max-w-xl">
-				<span className="text-sm font-semibold text-muted-foreground">linkstack-live.vercel.app/</span>
+				<span className="hidden text-sm font-semibold text-muted-foreground md:block">linkstack-live.vercel.app/</span>
 				<input
 					type="text"
 					value={slug}
@@ -48,7 +48,7 @@ export default function UpdateSlugForm() {
 					</button>
 					<button type="button" className="btn bg-secondary text-secondary-foreground" onClick={handleGenerateSlug}>
 						<Icon icon="icon-park-outline:magic-wand" className="icon text-xl" />
-						Random Slug
+						Random
 					</button>
 				</div>
 			</form>

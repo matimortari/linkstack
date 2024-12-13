@@ -13,7 +13,7 @@ export default function UpdateHeaderForm() {
 
 	useEffect(() => {
 		if (session) {
-			setCurrentDescription(session.user.description || "Enter new description")
+			setCurrentDescription(session.user.description || "Enter description")
 		}
 	}, [session])
 

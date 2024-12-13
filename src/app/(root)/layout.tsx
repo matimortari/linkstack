@@ -1,6 +1,7 @@
 import Providers from "@/src/components/context/Providers"
 import Footer from "@/src/components/Footer"
 import { authOptions } from "@/src/lib/auth"
+import "@/src/styles/animations.css"
 import "@/src/styles/globals.css"
 import type { Metadata } from "next"
 import { getServerSession } from "next-auth"

@@ -103,8 +103,8 @@ export default function Home() {
 					</div>
 				</section>
 
-				<section className="z-50 flex w-full max-w-xl flex-col items-center justify-center md:w-1/2">
-					<div className="flex flex-col">
+				<section className="expand-move z-50 flex w-full max-w-xl flex-col items-center justify-center md:w-1/2">
+					<div className="float flex flex-col">
 						<CardCarousel />
 					</div>
 				</section>
