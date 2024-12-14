@@ -6,10 +6,11 @@ import { useState } from "react"
 
 export default function AddButtonDialog({ onClose, addButton }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
-	const [selectedPlatform, setSelectedPlatform] = useState<string | null>(null)
+	const [selectedPlatform, setSelectedPlatform] = useState("")
 	const [url, setUrl] = useState("")
 	const icon = selectedPlatform ? SOCIAL_ICONS[selectedPlatform] : "" // Get icon based on selected platform
-	const { mutate: addNewButton, isPending } = useAddButton({ onClose })
+
+	const { mutate: addButtonMutation, isPending } = useAddButton({ onClose })
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
@@ -19,8 +20,7 @@ export default function AddButtonDialog({ onClose, addButton }) {
 			return
 		}
 
-		addNewButton({ platform: selectedPlatform, icon, url, clicks: 0 })
-
+		addButtonMutation({ platform: selectedPlatform, icon, url, clicks: 0 })
 		addButton({ platform: selectedPlatform, icon, url })
 		onClose()
 	}

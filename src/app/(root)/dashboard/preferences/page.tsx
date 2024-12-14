@@ -9,7 +9,7 @@ import { deleteUserAccount } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 
 export default function Preferences() {
-	const { slug, description, image, settings, setSettings } = useUser()
+	const { slug, description, image, settings, setSettings, links, buttons } = useUser()
 
 	const handleDeleteAccount = async () => {
 		const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.")
@@ -69,7 +69,14 @@ export default function Preferences() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
-				<Preview slug={slug} description={description} settings={settings} />
+				<Preview
+					slug={slug}
+					description={description}
+					image={image}
+					settings={settings}
+					links={links}
+					buttons={buttons}
+				/>
 			</aside>
 		</div>
 	)

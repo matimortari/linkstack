@@ -7,9 +7,12 @@ import LinkList from "@/src/components/lists/LinkList"
 import Navbar from "@/src/components/Navbar"
 import Preview from "@/src/components/Preview"
 import useUser from "@/src/hooks/useUser"
+import { useSession } from "next-auth/react"
 
 export default function Dashboard() {
-	const { session, slug, setSlug, description, setDescription, image, settings } = useUser()
+	const { data: session } = useSession()
+	const { slug, setSlug, description, setDescription, image, settings, links, setLinks, buttons, setButtons } =
+		useUser()
 
 	return (
 		<div className="flex min-h-screen flex-col md:flex-row">
@@ -44,14 +47,14 @@ export default function Dashboard() {
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">My Links</h2>
 						<p className="description-label text-muted-foreground">Manage your links.</p>
-						<LinkList />
+						<LinkList links={links} setLinks={setLinks} />
 					</div>
 					<hr />
 
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">My Social Buttons</h2>
 						<p className="description-label text-muted-foreground">Manage your social buttons.</p>
-						<ButtonList />
+						<ButtonList buttons={buttons} setButtons={setButtons} />
 					</div>
 					<hr />
 				</div>
@@ -59,7 +62,14 @@ export default function Dashboard() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
-				<Preview slug={slug} description={description} settings={settings} />
+				<Preview
+					slug={slug}
+					description={description}
+					image={image}
+					settings={settings}
+					links={links}
+					buttons={buttons}
+				/>
 			</aside>
 		</div>
 	)

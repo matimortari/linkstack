@@ -8,7 +8,8 @@ import { useEffect, useState } from "react"
 export default function UpdateSlugForm({ setSlug }) {
 	const { data: session } = useSession()
 	const [localSlug, setLocalSlug] = useState("")
-	const { mutate, isPending, error, isSuccess } = useUpdateSlug()
+
+	const { mutate: updateSlugMutation, isPending, error, isSuccess } = useUpdateSlug()
 
 	useEffect(() => {
 		if (session?.user) {
@@ -18,7 +19,7 @@ export default function UpdateSlugForm({ setSlug }) {
 
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		mutate(localSlug)
+		updateSlugMutation(localSlug)
 	}
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

@@ -9,7 +9,8 @@ export default function UpdateHeaderForm({ setDescription }) {
 	const { data: session } = useSession()
 	const [localDescription, setLocalDescription] = useState("")
 	const [currentDescription, setCurrentDescription] = useState("")
-	const { mutate, isPending, error, isSuccess } = useUpdateDescription()
+
+	const { mutate: updateDescriptionMutation, isPending, error, isSuccess } = useUpdateDescription()
 
 	useEffect(() => {
 		if (session) {
@@ -25,7 +26,7 @@ export default function UpdateHeaderForm({ setDescription }) {
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
-		mutate(localDescription)
+		updateDescriptionMutation(localDescription)
 	}
 
 	const handleReset = () => {

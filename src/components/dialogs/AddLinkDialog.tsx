@@ -2,11 +2,12 @@ import useDialog from "@/src/hooks/useDialog"
 import { useAddLink } from "@/src/hooks/useMutations"
 import { useState } from "react"
 
-export default function AddLinkDialog({ onClose }) {
+export default function AddLinkDialog({ onClose, addLink }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
 	const [title, setTitle] = useState("")
 	const [url, setUrl] = useState("")
-	const { mutate: addNewLink, isPending } = useAddLink({ onClose })
+
+	const { mutate: addLinkMutation, isPending } = useAddLink({ onClose })
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -16,7 +17,9 @@ export default function AddLinkDialog({ onClose }) {
 			return
 		}
 
-		addNewLink({ title, url, clicks: 0 })
+		addLinkMutation({ title, url, clicks: 0 })
+		addLink({ title, url })
+		onClose()
 	}
 
 	return (

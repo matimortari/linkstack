@@ -8,7 +8,7 @@ import Preview from "@/src/components/Preview"
 import useUser from "@/src/hooks/useUser"
 
 export default function Analytics() {
-	const { slug, description, image, settings } = useUser()
+	const { slug, description, image, settings, links, buttons } = useUser()
 
 	return (
 		<div className="flex min-h-screen flex-col md:flex-row">
@@ -45,7 +45,14 @@ export default function Analytics() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
-				<Preview slug={slug} description={description} settings={settings} />
+				<Preview
+					slug={slug}
+					description={description}
+					image={image}
+					settings={settings}
+					links={links}
+					buttons={buttons}
+				/>
 			</aside>
 		</div>
 	)

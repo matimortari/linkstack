@@ -9,11 +9,12 @@ import { useEffect, useState } from "react"
 
 export default function SupportBannerForm() {
 	const [selectedOption, setSelectedOption] = useState("NONE")
+
 	const { data: settings = defaultSettings, isPending } = useQuery({
 		queryKey: ["userSettings"],
 		queryFn: getUserSettings
 	})
-	const { mutate: updateBanner, isPending: isUpdating, isSuccess, isError } = useUpdateUserBanner()
+	const { mutate: updateBannerMutation, isPending: isUpdating, isSuccess, isError } = useUpdateUserBanner()
 
 	useEffect(() => {
 		if (settings) {
@@ -23,7 +24,7 @@ export default function SupportBannerForm() {
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault()
-		updateBanner(selectedOption)
+		updateBannerMutation(selectedOption)
 	}
 
 	if (isPending) return <p className="description-label text-muted-foreground">Loading support banner options...</p>

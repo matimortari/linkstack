@@ -1,19 +1,13 @@
 import useDialog from "@/src/hooks/useDialog"
-import { useUpdateLink } from "@/src/hooks/useMutations"
-import { useEffect, useState } from "react"
+import { useUpdateLink } from "@/src/hooks/useMutations" // Importing the update hook
+import { useState } from "react"
 
-export default function UpdateLinkDialog({ onClose, linkData }) {
+export default function UpdateLinkDialog({ onClose, linkData, updateLink }) {
 	const { dialogRef, setError, error } = useDialog(onClose)
-	const [title, setTitle] = useState("")
-	const [url, setUrl] = useState("")
-	const { mutate: updateExistingLink, isPending } = useUpdateLink({ onClose })
+	const [title, setTitle] = useState(linkData.title || "")
+	const [url, setUrl] = useState(linkData.url || "")
 
-	useEffect(() => {
-		if (linkData) {
-			setTitle(linkData.title)
-			setUrl(linkData.url)
-		}
-	}, [linkData])
+	const { mutate: updateLinkMutation, isPending } = useUpdateLink({ onClose })
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -23,7 +17,9 @@ export default function UpdateLinkDialog({ onClose, linkData }) {
 			return
 		}
 
-		updateExistingLink({ ...linkData, title, url })
+		updateLinkMutation({ ...linkData, title, url })
+		updateLink({ ...linkData, title, url })
+		onClose()
 	}
 
 	return (

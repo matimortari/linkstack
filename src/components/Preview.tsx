@@ -5,14 +5,12 @@ import Image from "next/image"
 import UserButton from "./UserButton"
 import UserLink from "./UserLink"
 
-export default function Preview({ slug, description, settings }) {
+export default function Preview({ slug, description, image, settings, links, buttons }) {
 	const { data: session } = useSession()
 
 	if (!session) {
-		return <p className="text-sm text-muted-foreground">Loading Preview...</p>
+		return <p className="text-sm text-muted-foreground">Loading...</p>
 	}
-
-	const { links, image, buttons, id: userId } = session.user
 
 	return (
 		<div
@@ -47,7 +45,7 @@ export default function Preview({ slug, description, settings }) {
 								icon={button.icon}
 								settings={settings}
 								buttonId={button.id}
-								userId={userId}
+								userId={session.user.id}
 							/>
 						))}
 					</ul>
@@ -64,7 +62,7 @@ export default function Preview({ slug, description, settings }) {
 								title={link.title}
 								settings={settings}
 								linkId={link.id}
-								userId={userId}
+								userId={session.user.id}
 							/>
 						))}
 					</ul>
