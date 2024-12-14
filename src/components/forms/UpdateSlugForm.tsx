@@ -1,46 +1,49 @@
 "use client"
 
 import { useUpdateSlug } from "@/src/hooks/useMutations"
-import { generateSlug } from "@/src/lib/utils"
 import { Icon } from "@iconify/react"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 
-export default function UpdateSlugForm() {
-	const [slug, setSlug] = useState("")
-	const [currentSlug, setCurrentSlug] = useState("")
+export default function UpdateSlugForm({ setSlug }) {
 	const { data: session } = useSession()
+	const [localSlug, setLocalSlug] = useState("")
 	const { mutate, isPending, error, isSuccess } = useUpdateSlug()
 
 	useEffect(() => {
-		if (session) {
-			setCurrentSlug(session?.user?.slug)
+		if (session?.user) {
+			setLocalSlug(session.user.slug || "")
 		}
 	}, [session])
 
-	const handleSubmit = (e: React.FormEvent) => {
+	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		mutate(slug)
+		mutate(localSlug)
+	}
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const newSlug = e.target.value
+		setLocalSlug(newSlug)
+		setSlug(newSlug)
 	}
 
 	const handleGenerateSlug = () => {
-		const newSlug = generateSlug(slug)
-		setSlug(newSlug)
+		const generatedSlug = `${Math.random().toString(36).substring(7)}`
+		setLocalSlug(generatedSlug)
+		setSlug(generatedSlug)
 	}
 
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="form-container my-2 max-w-xl">
-				<span className="hidden text-sm font-semibold text-muted-foreground md:block">linkstack-live.vercel.app/</span>
 				<input
 					type="text"
-					value={slug}
-					onChange={(e) => setSlug(e.target.value)}
-					placeholder={currentSlug}
+					value={localSlug}
+					onChange={handleChange}
+					placeholder={localSlug}
 					className="input flex-1 truncate text-sm text-muted-foreground"
 					required
 				/>
-
 				<div className="flex flex-row gap-1">
 					<button type="submit" className="btn bg-primary text-primary-foreground" disabled={isPending}>
 						<Icon icon="material-symbols:update" className="icon text-xl" />
@@ -53,8 +56,8 @@ export default function UpdateSlugForm() {
 				</div>
 			</form>
 
-			{isSuccess && <p className="mt-2 font-bold text-primary">Slug updated successfully!</p>}
-			{error && <p className="mt-2 font-bold text-destructive">Failed to update slug.</p>}
+			{isSuccess && <p className="description-label text-primary">Slug updated successfully!</p>}
+			{error && <p className="description-label text-destructive">Failed to update slug.</p>}
 		</>
 	)
 }

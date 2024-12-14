@@ -5,15 +5,15 @@ import AnalyticsSummary from "@/src/components/lists/AnalyticsSummary"
 import ClicksByLink from "@/src/components/lists/ClicksByLink"
 import Navbar from "@/src/components/Navbar"
 import Preview from "@/src/components/Preview"
-import useAuthRedirect from "@/src/hooks/useAuthRedirect"
+import useUser from "@/src/hooks/useUser"
 
 export default function Analytics() {
-	useAuthRedirect()
+	const { slug, description, image, settings } = useUser()
 
 	return (
 		<div className="flex min-h-screen flex-col md:flex-row">
 			<aside className="p-4 md:w-2/12">
-				<Navbar />
+				<Navbar slug={slug} image={image} />
 			</aside>
 
 			<main className="content-container md:w-7/12">
@@ -45,7 +45,7 @@ export default function Analytics() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
-				<Preview />
+				<Preview slug={slug} description={description} settings={settings} />
 			</aside>
 		</div>
 	)

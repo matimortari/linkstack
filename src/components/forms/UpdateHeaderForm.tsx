@@ -5,7 +5,7 @@ import { Icon } from "@iconify/react"
 import { useSession } from "next-auth/react"
 import { useEffect, useState } from "react"
 
-export default function UpdateHeaderForm() {
+export default function UpdateHeaderForm({ setDescription }) {
 	const { data: session } = useSession()
 	const [localDescription, setLocalDescription] = useState("")
 	const [currentDescription, setCurrentDescription] = useState("")
@@ -14,8 +14,14 @@ export default function UpdateHeaderForm() {
 	useEffect(() => {
 		if (session) {
 			setCurrentDescription(session.user.description || "Enter description")
+			setLocalDescription(session.user.description || "")
 		}
 	}, [session])
+
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		setLocalDescription(e.target.value)
+		setDescription(e.target.value)
+	}
 
 	const handleSubmit = (e: React.FormEvent) => {
 		e.preventDefault()
@@ -32,7 +38,7 @@ export default function UpdateHeaderForm() {
 				<input
 					type="text"
 					value={localDescription}
-					onChange={(e) => setLocalDescription(e.target.value)}
+					onChange={handleChange}
 					placeholder={currentDescription}
 					className="input flex-1 truncate text-sm text-muted-foreground"
 				/>

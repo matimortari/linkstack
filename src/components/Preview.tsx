@@ -5,14 +5,14 @@ import Image from "next/image"
 import UserButton from "./UserButton"
 import UserLink from "./UserLink"
 
-export default function Preview() {
+export default function Preview({ slug, description, settings }) {
 	const { data: session } = useSession()
 
 	if (!session) {
 		return <p className="text-sm text-muted-foreground">Loading Preview...</p>
 	}
 
-	const { description, links, image, buttons, settings, slug, id: userId } = session.user || {}
+	const { links, image, buttons, id: userId } = session.user
 
 	return (
 		<div

@@ -6,10 +6,12 @@ import Image from "next/image"
 import Link from "next/link"
 import ThemeSwitch from "./ThemeSwitch"
 
-export default function Navbar() {
+export default function Navbar({ slug, image }) {
 	const { data: session } = useSession()
-	const slug = session?.user?.slug
-	const image = session?.user?.image
+
+	if (!session) {
+		return <p className="text-sm text-muted-foreground">Loading...</p>
+	}
 
 	return (
 		<>

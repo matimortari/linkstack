@@ -1,3 +1,5 @@
+"use client"
+
 import {
 	BORDER_RADIUS_OPTIONS,
 	defaultSettings,
@@ -7,14 +9,12 @@ import {
 } from "@/src/data/userSettings"
 import { useResetSettings, useUpdateSettings } from "@/src/hooks/useMutations"
 import { getUserSettings } from "@/src/lib/actions"
-import "@/src/styles/inputs.css"
 import { Icon } from "@iconify/react"
 import { useQuery } from "@tanstack/react-query"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import { CheckboxInput, ColorInput, RadioOptions } from "./Inputs"
 
-export default function AppearanceForm() {
-	const [settings, setSettings] = useState(defaultSettings)
+export default function AppearanceForm({ settings, setSettings }) {
 	const { data: userSettings, isPending } = useQuery({ queryKey: ["settings"], queryFn: getUserSettings })
 	const { mutate: resetSettingsMutation, isSuccess: resetSuccess, isError: resetError } = useResetSettings()
 	const { mutate: updateSettingsMutation, isSuccess: updateSuccess, isError: updateError } = useUpdateSettings()
@@ -23,13 +23,13 @@ export default function AppearanceForm() {
 		if (userSettings) {
 			setSettings(userSettings)
 		}
-	}, [userSettings])
+	}, [userSettings, setSettings])
 
 	useEffect(() => {
 		if (resetSuccess) {
 			setSettings(defaultSettings)
 		}
-	}, [resetSuccess])
+	}, [resetSuccess, setSettings])
 
 	const handleColorChange = (key) => (e: React.ChangeEvent<HTMLInputElement>) => {
 		setSettings((prev) => ({ ...prev, [key]: e.target.value }))
@@ -58,6 +58,7 @@ export default function AppearanceForm() {
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="flex flex-wrap">
+				{/* General Settings */}
 				<div className="flex w-full flex-col md:w-1/2">
 					<h1 className="subtitle my-2">General Settings</h1>
 					<hr className="max-w-xs" />
@@ -96,6 +97,7 @@ export default function AppearanceForm() {
 					/>
 				</div>
 
+				{/* Social Buttons */}
 				<div className="flex w-full flex-col md:w-1/2">
 					<h1 className="subtitle my-2">Social Buttons</h1>
 					<hr className="max-w-xs" />
@@ -197,7 +199,6 @@ export default function AppearanceForm() {
 
 			{resetSuccess && <p className="description-label text-primary">Settings reset to default.</p>}
 			{resetError && <p className="description-label text-destructive">Failed to reset settings.</p>}
-
 			{updateSuccess && <p className="description-label text-primary">Settings updated successfully!</p>}
 			{updateError && <p className="description-label text-destructive">Failed to update settings.</p>}
 		</>

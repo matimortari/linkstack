@@ -4,12 +4,12 @@ import AppearanceForm from "@/src/components/forms/AppearanceForm"
 import SupportBannerForm from "@/src/components/forms/SupportBannerForm"
 import Navbar from "@/src/components/Navbar"
 import Preview from "@/src/components/Preview"
-import useAuthRedirect from "@/src/hooks/useAuthRedirect"
+import useUser from "@/src/hooks/useUser"
 import { deleteUserAccount } from "@/src/lib/actions"
 import { Icon } from "@iconify/react"
 
 export default function Preferences() {
-	useAuthRedirect()
+	const { slug, description, image, settings, setSettings } = useUser()
 
 	const handleDeleteAccount = async () => {
 		const confirmation = confirm("Are you sure you want to delete your account? This action cannot be undone.")
@@ -28,7 +28,7 @@ export default function Preferences() {
 	return (
 		<div className="flex min-h-screen flex-col md:flex-row">
 			<aside className="p-4 md:w-2/12">
-				<Navbar />
+				<Navbar slug={slug} image={image} />
 			</aside>
 
 			<main className="content-container md:w-7/12">
@@ -42,7 +42,7 @@ export default function Preferences() {
 					<div className="my-4 flex flex-col">
 						<h2 className="subtitle">Appearance</h2>
 						<p className="description-label text-muted-foreground">Customize your profile appearance.</p>
-						<AppearanceForm />
+						<AppearanceForm settings={settings} setSettings={setSettings} />
 					</div>
 					<hr />
 
@@ -69,7 +69,7 @@ export default function Preferences() {
 
 			<aside className="p-4 md:w-3/12">
 				<h1 className="title">Preview</h1>
-				<Preview />
+				<Preview slug={slug} description={description} settings={settings} />
 			</aside>
 		</div>
 	)
