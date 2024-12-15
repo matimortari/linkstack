@@ -34,7 +34,7 @@ export default function Navbar({ slug, image }) {
 			<div className="flex w-full flex-row justify-center gap-2 text-sm md:flex-col">
 				<Link href="/dashboard" className="btn flex-col text-center md:flex-row">
 					<Icon icon="material-symbols:view-timeline-outline" className="icon text-xl" />
-					<p className="hidden md:block">My Links</p>
+					<p className="hidden md:block">My Profile</p>
 				</Link>
 				<hr />
 

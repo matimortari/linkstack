@@ -31,11 +31,11 @@ export default function SupportBannerForm() {
 
 	return (
 		<>
-			<form className="my-2 flex max-w-md flex-col gap-2" onSubmit={handleSubmit}>
+			<form className="my-2 flex max-w-xs flex-col gap-2" onSubmit={handleSubmit}>
 				<select
 					value={selectedOption}
 					onChange={(event) => setSelectedOption(event.target.value)}
-					className="form-container text-sm font-medium"
+					className="form-container appearance-none bg-transparent text-sm font-medium"
 				>
 					<option value="NONE" className="bg-card font-medium text-muted-foreground">
 						None

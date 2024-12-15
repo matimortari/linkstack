@@ -12,20 +12,20 @@ export default function AnalyticsSummary() {
 
 	return (
 		<div className="content-container">
-			<div className="flex flex-row items-center justify-around">
-				<div className="flex flex-col">
+			<div className="flex flex-row items-center justify-between gap-2">
+				<div className="content-container flex flex-col text-center">
 					<p className="description-label">Total Page Views</p>
-					<p className="text-lg font-semibold">{totalViews}</p>
+					<p className="text-2xl font-semibold">{totalViews}</p>
 				</div>
 
-				<div className="flex flex-col">
-					<p className="description-label">Total Clicks</p>
-					<p className="text-lg font-semibold">{totalClicks}</p>
+				<div className="content-container flex flex-col text-center">
+					<p className="description-label">Total Link Clicks</p>
+					<p className="text-2xl font-semibold">{totalClicks}</p>
 				</div>
 
-				<div className="flex flex-col">
+				<div className="content-container flex flex-col text-center">
 					<p className="description-label">Conversion Rate</p>
-					<p className="text-lg font-semibold text-primary">{conversionRate}%</p>
+					<p className="text-2xl font-semibold text-primary">{conversionRate}%</p>
 				</div>
 			</div>
 		</div>

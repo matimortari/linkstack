@@ -58,9 +58,8 @@ export default function AppearanceForm({ settings, setSettings }) {
 	return (
 		<>
 			<form onSubmit={handleSubmit} className="flex flex-wrap">
-				{/* General Settings */}
 				<div className="flex w-full flex-col md:w-1/2">
-					<h1 className="subtitle my-2">General Settings</h1>
+					<h2 className="subtitle my-2">General Settings</h2>
 					<hr className="max-w-xs" />
 					<ColorInput
 						id="backgroundColor"
@@ -97,9 +96,8 @@ export default function AppearanceForm({ settings, setSettings }) {
 					/>
 				</div>
 
-				{/* Social Buttons */}
 				<div className="flex w-full flex-col md:w-1/2">
-					<h1 className="subtitle my-2">Social Buttons</h1>
+					<h2 className="subtitle my-2">Social Buttons</h2>
 					<hr className="max-w-xs" />
 					<ColorInput
 						id="buttonBackgroundColor"
@@ -134,7 +132,8 @@ export default function AppearanceForm({ settings, setSettings }) {
 						onChange={handleColorChange("buttonShadowColor")}
 					/>
 					<hr className="max-w-xs" />
-					<h1 className="subtitle my-2">Link Buttons</h1>
+
+					<h2 className="subtitle my-2">Link Buttons</h2>
 					<hr className="max-w-xs" />
 					<ColorInput
 						id="linkBackgroundColor"
