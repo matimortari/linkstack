@@ -18,7 +18,13 @@ export default function Navbar({ slug, image }) {
 			<div className="flex flex-row justify-between gap-4 pb-2 md:flex-col">
 				<div className="flex w-fit flex-row justify-between gap-4 md:flex-col md:justify-center">
 					<Link href="/" className="flex flex-row items-center justify-start gap-2">
-						<Image src="/logo.png" alt="Logo" width={35} height={35} className="icon" />
+						<Image
+							src="/logo.png"
+							alt="Logo"
+							width={35}
+							height={35}
+							className="icon rounded-full border border-muted"
+						/>
 						<span className="hidden text-lg font-bold md:block">LinkStack</span>
 					</Link>
 

@@ -25,11 +25,11 @@ export default function Home() {
 
 			<header className="relative flex w-full items-center justify-between">
 				<Link href="/" className="flex flex-row items-center justify-start gap-2">
-					<Image src="/logo.png" alt="Logo" width={35} height={35} className="icon" />
+					<Image src="/logo.png" alt="Logo" width={35} height={35} className="icon rounded-full border border-muted" />
 					<span className="hidden text-lg font-bold md:block">LinkStack</span>
 				</Link>
 				<Link href="/login" className="btn">
-					<Icon icon="material-symbols:login" width={25} height={25} className="icon" />
+					<Icon icon="material-symbols:login" width={20} height={20} className="icon" />
 				</Link>
 			</header>
 
