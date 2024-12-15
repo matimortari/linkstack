@@ -1,18 +1,20 @@
-# LinkStack
+# LinkStack 🔗🌐
 
-Free website for aggregating and managing your links & social media profiles! Based on [Linktree](https://linktr.ee). Built with Next.js, TypeScript, and Tailwind CSS.
+A platform inspired by [Linktree](https://linktr.ee), that allows users to create a personalized landing page with links to their social media profiles, websites, and more. Built with Next.js, TypeScript, and Tailwind CSS.
 
-[🔍 **Check it out!**](https://linkstack-live.vercel.app)
+It is my first full-stack project built from scratch, and it's been a amazing learning experience. I aimed to deepen my understanding of some concepts, such as: project structure, **React.js** custom hooks, state management & data fetching (in which **React Query** proved to be a great tool for me), multiple layouts in **Next.js**, responsive design (using **Tailwind CSS**), and data visualization using **Recharts**.
+
+[**Check it out!** 🔍](https://linkstack-live.vercel.app)
 
 ## 📦 Key Features
 
-- **Authentication:** Sign in with Google or GitHub.
-- **Dashboard Page:** Manage your profile, links, and settings from your dashboard.
-- **Custom User Page:** Create your own page with your name, profile picture, and an optional header. Customize it and add as many links as you want!
+- **User Authentication:** Sign in with Google or GitHub.
+- **Dashboard Page:** Manage your profile and links, and check analytics from your dashboard.
+- **Custom User Page:** Create your own landing page and customize it and add as many links as you want.
 - **User Links:** Add links to your profile, with custom titles and layouts.
-- **Social Buttons:** Add social media buttons to your profile, with custom colors.
-- **Support Banner:** Support important causes with a profile banner for your page.
-- **Analytics:** Track the number of clicks on your links and the number of visits to your page.
+- **Social Buttons:** Add intuitive buttons to your social media profiles.
+- **Support Banner:** Support important causes with a profile banner for your landing page.
+- **Analytics:** Check metrics such as the number of clicks on your links and the number of visits to your profile.
 - **Theme Switch:** Toggle between light and dark theme.
 
 ## 🛠️ Stack
@@ -24,10 +26,6 @@ Free website for aggregating and managing your links & social media profiles! Ba
 - **Recharts** for analytics data visualization.
 - **TypeScript**.
 - **Tailwind CSS**.
-
-## ✍️ Developer Note
-
-**LinkStack** is my first own full-stack project built from scratch, and it has been a rewarding journey. While tools like **Linktree** exist, I wanted to challenge myself by creating a similar platform from the ground up. Throughout the process, I aimed to deepen my understanding of concepts such as project structure and multiple layouts in Next.js, along with state management and data fetching (in which **React Query** proved to be a great tool for me). I also wanted to improve my responsive design skills with **Tailwind CSS**, and learn data visualization with my library of choice, **Recharts**.
 
 ## 📬 Contact
 
