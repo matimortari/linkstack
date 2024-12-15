@@ -1,5 +1,5 @@
-import { getSessionOrUnauthorized } from "@/src/lib/api"
 import { db } from "@/src/lib/db"
+import { getSessionOrUnauthorized } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 // GET method for getting user data
@@ -38,7 +38,7 @@ export async function PUT(req: NextRequest) {
 	return NextResponse.json({ message: "User updated successfully", updatedUser, status: 200 })
 }
 
-// DELETE method for deleting user account
+// DELETE method for deleting user
 export async function DELETE(req: NextRequest) {
 	const { error, session, response } = await getSessionOrUnauthorized()
 	if (error) return response

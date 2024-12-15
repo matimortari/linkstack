@@ -1,6 +1,6 @@
 import { defaultSettings } from "@/src/data/userSettings"
-import { getSessionOrUnauthorized } from "@/src/lib/api"
 import { db } from "@/src/lib/db"
+import { getSessionOrUnauthorized } from "@/src/lib/utils"
 import { NextRequest, NextResponse } from "next/server"
 
 // GET method for getting user settings
