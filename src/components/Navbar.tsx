@@ -19,7 +19,7 @@ export default function Navbar({ slug, image }) {
 				<div className="flex w-fit flex-row justify-between gap-4 md:flex-col md:justify-center">
 					<Link href="/" className="flex flex-row items-center justify-start gap-2">
 						<Image src="/logo.png" alt="Logo" width={35} height={35} className="icon" />
-						<p className="hidden text-lg font-bold md:block">LinkStack</p>
+						<span className="hidden text-lg font-bold md:block">LinkStack</span>
 					</Link>
 
 					<Link href={`/${slug}`} className="flex flex-row items-center justify-start gap-2">

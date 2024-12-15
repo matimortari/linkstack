@@ -11,7 +11,7 @@ const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
 	title: "LinkStack",
-	description: "Free website for aggregating and managing your links & social media profiles!"
+	description: "Keep all your stuff together! Share your links in one page and share it with your audience."
 }
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {

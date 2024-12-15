@@ -3,6 +3,7 @@
 import { Icon } from "@iconify/react"
 import { signIn, useSession } from "next-auth/react"
 import Image from "next/image"
+import Link from "next/link"
 import { redirect } from "next/navigation"
 
 export default function Login() {
@@ -14,15 +15,24 @@ export default function Login() {
 
 	return (
 		<div className="content-container relative min-h-screen overflow-hidden">
-			<div className="absolute inset-x-0 bottom-0 opacity-50 md:h-3/6">
+			<div className="absolute inset-x-0 bottom-0 h-2/6 opacity-50 md:h-3/6">
 				<Image src="/grid-bg.png" alt="Background" fill />
 			</div>
 
-			<div className="flex flex-col items-center justify-center p-8">
-				<strong className="p-4 text-5xl">Sign In</strong>
-				<p className="text-muted-foreground">Sign in with your preferred provider.</p>
+			<header className="relative flex w-full items-center justify-between">
+				<Link href="/" className="flex flex-row items-center justify-start gap-2">
+					<Image src="/logo.png" alt="Logo" width={35} height={35} className="icon" />
+					<span className="hidden text-lg font-bold md:block">LinkStack</span>
+				</Link>
+				<Link href="/login" className="btn">
+					<Icon icon="material-symbols:login" width={25} height={25} className="icon" />
+				</Link>
+			</header>
 
-				<hr className="my-6 w-full" />
+			<main className="flex flex-col items-center justify-center py-8 text-center">
+				<p className="p-2 text-5xl font-extrabold">Sign In</p>
+				<p className="text-muted-foreground">Sign in with your preferred provider.</p>
+				<hr className="my-4 w-full" />
 
 				<div className="flex flex-col items-center justify-center gap-2">
 					<button className="btn bg-google text-accent-foreground" onClick={() => signIn("google")}>
@@ -34,7 +44,7 @@ export default function Login() {
 						Sign In With GitHub
 					</button>
 				</div>
-			</div>
+			</main>
 		</div>
 	)
 }
